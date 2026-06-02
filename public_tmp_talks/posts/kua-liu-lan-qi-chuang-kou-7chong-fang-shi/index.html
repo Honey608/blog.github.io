@@ -1,0 +1,353 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                跨浏览器窗口,7种方式
+            
+        </title><meta content=跨浏览器窗口,7种方式 property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>跨浏览器窗口,7种方式</div><div class=meta>Posted on <time>2021-09-01</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><h4 id=websocket><a aria-label="Anchor link for: websocket" class=zola-anchor href=#websocket>WebSocket</a></h4><blockquote><p>跨浏览器窗口,7种方式 模拟聊天室 服务端代码 ```javascript const WebSocket = require('ws');</blockquote><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    const server = new WebSocket.Server({</span></span>
+<span class=giallo-l><span>    port: 8080</span></span>
+<span class=giallo-l><span>    });</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    server.on('open', function open() {</span></span>
+<span class=giallo-l><span>    console.log('connected');</span></span>
+<span class=giallo-l><span>    });</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    server.on('close', function close() {</span></span>
+<span class=giallo-l><span>    console.log('disconnected');</span></span>
+<span class=giallo-l><span>    });</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    server.on('connection', function connection(ws, req) {</span></span>
+<span class=giallo-l><span>    const ip = req.connection.remoteAddress;</span></span>
+<span class=giallo-l><span>    const port = req.connection.remotePort;</span></span>
+<span class=giallo-l><span>    const clientName = ip + port;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    console.log('%s is connected', clientName)</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 发送欢迎信息给客户端</span></span>
+<span class=giallo-l><span>    ws.send("Welcome " + clientName);</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    ws.on('message', function incoming(message) {</span></span>
+<span class=giallo-l><span>        console.log('received: %s from %s', message, clientName);</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>        // 广播消息给所有客户端</span></span>
+<span class=giallo-l><span>        server.clients.forEach(function each(client) {</span></span>
+<span class=giallo-l><span>        if (client.readyState === WebSocket.OPEN) {</span></span>
+<span class=giallo-l><span>            client.send(clientName + " -> " + message);</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        });</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    });</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    });</span></span>
+<span class=giallo-l><span>```</span></span></code></pre><p>客户端的实现 ```javascript <!doctype html> <meta charset=UTF-8> <title>WebSocket Chat</title> <script>var socket;
+if (!window.WebSocket) {
+window.WebSocket = window.MozWebSocket;
+}
+if (window.WebSocket) {
+socket = new WebSocket("ws://localhost:8080/ws");
+socket.onmessage = function (event) {
+var ta = document.getElementById('responseText');
+ta.value = ta.value + '\n' + event.data
+};
+socket.onopen = function (event) {
+var ta = document.getElementById('responseText');
+ta.value = "连接开启!";
+};
+socket.onclose = function (event) {
+var ta = document.getElementById('responseText');
+ta.value = ta.value + "连接被关闭";
+};
+} else {
+alert("你的浏览器不支持 WebSocket！");
+}</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>            function send(message) {</span></span>
+<span class="giallo-l"><span>                if (!window.WebSocket) {</span></span>
+<span class="giallo-l"><span>                    return;</span></span>
+<span class="giallo-l"><span>                }</span></span>
+<span class="giallo-l"><span>                if (socket.readyState == WebSocket.OPEN) {</span></span>
+<span class="giallo-l"><span>                    socket.send(message);</span></span>
+<span class="giallo-l"><span>                } else {</span></span>
+<span class="giallo-l"><span>                    alert(&quot;连接没有开启.&quot;);</span></span>
+<span class="giallo-l"><span>                }</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"><span>        &lt;/script&gt;</span></span>
+<span class="giallo-l"><span>        &lt;form onsubmit=&quot;return false;&quot;&gt;</span></span>
+<span class="giallo-l"><span>            &lt;h3&gt;WebSocket 聊天室：&lt;/h3&gt;</span></span>
+<span class="giallo-l"><span>            &lt;textarea id=&quot;responseText&quot; style=&quot;width: 500px; height: 300px;&quot;&gt;&lt;/textarea&gt;</span></span>
+<span class="giallo-l"><span>            &lt;br&gt;</span></span>
+<span class="giallo-l"><span>            &lt;input type=&quot;text&quot; name=&quot;message&quot; style=&quot;width: 300px&quot; value=&quot;您好&quot;&gt;</span></span>
+<span class="giallo-l"><span>            &lt;input type=&quot;button&quot; value=&quot;发送消息&quot; onclick=&quot;send(this.form.message.value)&quot;&gt;</span></span>
+<span class="giallo-l"><span>            &lt;input type=&quot;button&quot; onclick=&quot;javascript:document.getElementById(&#39;responseText&#39;).value=&#39;&#39;&quot; value=&quot;清空聊天记录&quot;&gt;</span></span>
+<span class="giallo-l"><span>        &lt;/form&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/body&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/html&gt;</span></span>
+<span class="giallo-l"><span>```</span></span></code></pre><h4 id="ding-shi-qi-ke-hu-duan-cun-chu"><a class="zola-anchor" href="#ding-shi-qi-ke-hu-duan-cun-chu" aria-label="Anchor link for: ding-shi-qi-ke-hu-duan-cun-chu">定时器 + 客户端存储</a></h4>
+<h4 id="postmessage"><a class="zola-anchor" href="#postmessage" aria-label="Anchor link for: postmessage">postMessage</a></h4>
+<h4 id="storageevent"><a class="zola-anchor" href="#storageevent" aria-label="Anchor link for: storageevent">StorageEvent</a></h4>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>page1</span></span>
+<span class="giallo-l"><span>```javascript</span></span>
+<span class="giallo-l"><span>    localStorage.setItem(&#39;message&#39;,JSON.stringify({</span></span>
+<span class="giallo-l"><span>        message: &#39;消息&#39;，</span></span>
+<span class="giallo-l"><span>        from: &#39;Page 1&#39;,</span></span>
+<span class="giallo-l"><span>        date: Date.now()</span></span>
+<span class="giallo-l"><span>    }))</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>page2</span></span>
+<span class="giallo-l"><span>```javascript</span></span>
+<span class="giallo-l"><span>    localStorage.setItem(&#39;message&#39;,JSON.stringify({</span></span>
+<span class="giallo-l"><span>        message: &#39;消息&#39;，</span></span>
+<span class="giallo-l"><span>        from: &#39;Page 1&#39;,</span></span>
+<span class="giallo-l"><span>        date: Date.now()</span></span>
+<span class="giallo-l"><span>    }))</span></span>
+<span class="giallo-l"><span>```</span></span></code></pre><h4 id="broadcastchannel"><a class="zola-anchor" href="#broadcastchannel" aria-label="Anchor link for: broadcastchannel">BroadcastChannel</a></h4>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>page1</span></span>
+<span class="giallo-l"><span>```javascript</span></span>
+<span class="giallo-l"><span>    var channel = new BroadcastChannel(&quot;channel-BroadcastChannel&quot;);</span></span>
+<span class="giallo-l"><span>    channel.postMessage(&#39;Hello, BroadcastChannel!&#39;)</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>page2</span></span>
+<span class="giallo-l"><span>```javascript</span></span>
+<span class="giallo-l"><span>    var channel = new BroadcastChannel(&quot;channel-BroadcastChannel&quot;);</span></span>
+<span class="giallo-l"><span>    channel.addEventListener(&quot;message&quot;, function(ev) {</span></span>
+<span class="giallo-l"><span>        console.log(ev.data)</span></span>
+<span class="giallo-l"><span>    });</span></span>
+<span class="giallo-l"><span>```</span></span></code></pre><h4 id="sharedworker"><a class="zola-anchor" href="#sharedworker" aria-label="Anchor link for: sharedworker">SharedWorker</a></h4>
+<blockquote>
+<p>我们可以在浏览器地址栏里面输入 `chrome://inspect，然后在侧边栏选中shared workers了，就可以看到浏览器，目前在运行的所有worker。点击inspect会打开一个开发者工具，然后就可以看到输出的log了
+注意：如果要使 SharedWorker 连接到多个不同的页面，这些页面必须是同源的（相同的协议、host 以及端口）。
+worker.js
+```javascript
+var portList = [];</p>
+</blockquote>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>    onconnect = function(e) {</span></span>
+<span class="giallo-l"><span>        console.log(&#39;e&#39;, e)</span></span>
+<span class="giallo-l"><span>        var port = e.ports[0];</span></span>
+<span class="giallo-l"><span>        ensurePorts(port);</span></span>
+<span class="giallo-l"><span>        port.onmessage = function(e) {</span></span>
+<span class="giallo-l"><span>            var data = e.data;</span></span>
+<span class="giallo-l"><span>            disptach(port, data);</span></span>
+<span class="giallo-l"><span>        };</span></span>
+<span class="giallo-l"><span>        port.start();</span></span>
+<span class="giallo-l"><span>    };</span></span>
+<span class="giallo-l"><span>    // 创建所有workder</span></span>
+<span class="giallo-l"><span>    function ensurePorts(port) {</span></span>
+<span class="giallo-l"><span>        if (portList.indexOf(port) &lt; 0) {</span></span>
+<span class="giallo-l"><span>            portList.push(port);</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    // 发送其他页面</span></span>
+<span class="giallo-l"><span>    function disptach(selfPort, data) {</span></span>
+<span class="giallo-l"><span>        console.log(&#39;portList&#39;, portList)</span></span>
+<span class="giallo-l"><span>        console.log(&#39;selfPort&#39;, selfPort)</span></span>
+<span class="giallo-l"><span>        console.log(&#39;data&#39;, data)</span></span>
+<span class="giallo-l"><span>        portList</span></span>
+<span class="giallo-l"><span>            .filter(port =&gt; selfPort !== port)</span></span>
+<span class="giallo-l"><span>            .forEach(port =&gt; port.postMessage(data));</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>page1</span></span>
+<span class="giallo-l"><span>```javascript</span></span>
+<span class="giallo-l"><span>    &lt;!DOCTYPE html&gt;</span></span>
+<span class="giallo-l"><span>    &lt;html lang=&quot;en&quot;&gt;</span></span>
+<span class="giallo-l"><span>    &lt;head&gt;</span></span>
+<span class="giallo-l"><span>        &lt;meta charset=&quot;UTF-8&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;title&gt;BroadcastChannel Page 1&lt;/title&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/head&gt;</span></span>
+<span class="giallo-l"><span>    &lt;body&gt;</span></span>
+<span class="giallo-l"><span>        &lt;h3&gt;Page 1&lt;/h3&gt;</span></span>
+<span class="giallo-l"><span>        &lt;section style=&quot;margin-top:50px; text-align: center&quot;&gt;</span></span>
+<span class="giallo-l"><span>        &lt;input id=&quot;inputMessage&quot; value=&quot;page 1的测试消息&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;input type=&quot;button&quot; value=&quot;发送消息&quot; id=&quot;btnSend&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;section id=&quot;messages&quot;&gt;</span></span>
+<span class="giallo-l"><span>            &lt;p&gt;收到的消息：&lt;/p&gt;</span></span>
+<span class="giallo-l"><span>        &lt;/section&gt;</span></span>
+<span class="giallo-l"><span>        &lt;/section&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        &lt;script src=&quot;./worker.js&quot;&gt;&lt;/script&gt;</span></span>
+<span class="giallo-l"><span>        &lt;script&gt;</span></span>
+<span class="giallo-l"><span>        var messagesEle = document.getElementById(&quot;messages&quot;);</span></span>
+<span class="giallo-l"><span>        var messageEl = document.getElementById(&quot;inputMessage&quot;);</span></span>
+<span class="giallo-l"><span>        var btnSend = document.getElementById(&quot;btnSend&quot;);</span></span>
+<span class="giallo-l"><span>        //</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        if (!window.SharedWorker) {</span></span>
+<span class="giallo-l"><span>            alert(&quot;浏览器不支持SharedWorkder!&quot;);</span></span>
+<span class="giallo-l"><span>        } else {</span></span>
+<span class="giallo-l"><span>            var myWorker = new SharedWorker(&quot;./worker.js&quot;);</span></span>
+<span class="giallo-l"><span>            // 监听数据</span></span>
+<span class="giallo-l"><span>            myWorker.port.onmessage = function(e) {</span></span>
+<span class="giallo-l"><span>            console.log(&#39;page1&#39;, e)</span></span>
+<span class="giallo-l"><span>            var msgEl = document.createElement(&quot;p&quot;);</span></span>
+<span class="giallo-l"><span>            var data = e.data;</span></span>
+<span class="giallo-l"><span>            msgEl.innerText = data.date + &quot; &quot; + data.from + &quot;:&quot; + data.message;</span></span>
+<span class="giallo-l"><span>            messagesEle.appendChild(msgEl);</span></span>
+<span class="giallo-l"><span>            };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            btnSend.addEventListener(&quot;click&quot;, function() {</span></span>
+<span class="giallo-l"><span>            var message = messageEl.value;</span></span>
+<span class="giallo-l"><span>            // 发送数据</span></span>
+<span class="giallo-l"><span>            myWorker.port.postMessage({</span></span>
+<span class="giallo-l"><span>                date: new Date().toLocaleString(),</span></span>
+<span class="giallo-l"><span>                message,</span></span>
+<span class="giallo-l"><span>                from: &quot;page 1&quot;</span></span>
+<span class="giallo-l"><span>            });</span></span>
+<span class="giallo-l"><span>            });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            myWorker.port.start();</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>        &lt;/script&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/body&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/html&gt;</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>page2</span></span>
+<span class="giallo-l"><span>```javascript</span></span>
+<span class="giallo-l"><span>    &lt;!DOCTYPE html&gt;</span></span>
+<span class="giallo-l"><span>    &lt;html lang=&quot;en&quot;&gt;</span></span>
+<span class="giallo-l"><span>    &lt;head&gt;</span></span>
+<span class="giallo-l"><span>        &lt;meta charset=&quot;UTF-8&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;title&gt;BroadcastChannel Page 1&lt;/title&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/head&gt;</span></span>
+<span class="giallo-l"><span>    &lt;body&gt;</span></span>
+<span class="giallo-l"><span>        &lt;h3&gt;Page 2&lt;/h3&gt;</span></span>
+<span class="giallo-l"><span>        &lt;section style=&quot;margin-top:50px; text-align: center&quot;&gt;</span></span>
+<span class="giallo-l"><span>        &lt;input id=&quot;inputMessage&quot; value=&quot;page 1的测试消息&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;input type=&quot;button&quot; value=&quot;发送消息&quot; id=&quot;btnSend&quot; /&gt;</span></span>
+<span class="giallo-l"><span>        &lt;section id=&quot;messages&quot;&gt;</span></span>
+<span class="giallo-l"><span>            &lt;p&gt;收到的消息：&lt;/p&gt;</span></span>
+<span class="giallo-l"><span>        &lt;/section&gt;</span></span>
+<span class="giallo-l"><span>        &lt;/section&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        &lt;script src=&quot;./worker.js&quot;&gt;&lt;/script&gt;</span></span>
+<span class="giallo-l"><span>        &lt;script&gt;</span></span>
+<span class="giallo-l"><span>        var messagesEle = document.getElementById(&quot;messages&quot;);</span></span>
+<span class="giallo-l"><span>        var messageEl = document.getElementById(&quot;inputMessage&quot;);</span></span>
+<span class="giallo-l"><span>        var btnSend = document.getElementById(&quot;btnSend&quot;);</span></span>
+<span class="giallo-l"><span>        //</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        if (!window.SharedWorker) {</span></span>
+<span class="giallo-l"><span>            alert(&quot;浏览器不支持SharedWorkder!&quot;);</span></span>
+<span class="giallo-l"><span>        } else {</span></span>
+<span class="giallo-l"><span>            var myWorker = new SharedWorker(&quot;./worker.js&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            myWorker.port.onmessage = function(e) {</span></span>
+<span class="giallo-l"><span>            console.log(&#39;page2&#39;, e)</span></span>
+<span class="giallo-l"><span>            var msgEl = document.createElement(&quot;p&quot;);</span></span>
+<span class="giallo-l"><span>            var data = e.data;</span></span>
+<span class="giallo-l"><span>            msgEl.innerText = data.date + &quot; &quot; + data.from + &quot;:&quot; + data.message;</span></span>
+<span class="giallo-l"><span>            messagesEle.appendChild(msgEl);</span></span>
+<span class="giallo-l"><span>            };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            btnSend.addEventListener(&quot;click&quot;, function() {</span></span>
+<span class="giallo-l"><span>            var message = messageEl.value;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            var message = messageEl.value;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            myWorker.port.postMessage({</span></span>
+<span class="giallo-l"><span>                date: new Date().toLocaleString(),</span></span>
+<span class="giallo-l"><span>                message,</span></span>
+<span class="giallo-l"><span>                from: &quot;page 2&quot;</span></span>
+<span class="giallo-l"><span>            });</span></span>
+<span class="giallo-l"><span>            });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            myWorker.port.start();</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>        &lt;/script&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/body&gt;</span></span>
+<span class="giallo-l"><span>    &lt;/html&gt;</span></span>
+<span class="giallo-l"><span>```</span></span></code></pre><h4 id="messagechannel"><a class="zola-anchor" href="#messagechannel" aria-label="Anchor link for: messagechannel">MessageChannel</a></h4>
+
+                </section>
+            </article>
+        </main>
+    </div>
+
+
+
+            
+                
+            
+
+            
+        </div>
+
+        <div class="right-content">
+            
+    
+    
+        <div class="toc">
+    <div class="heading">
+        Table of Contents
+    </div>
+    <ul class="toc-list">
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#websocket">WebSocket</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#ding-shi-qi-ke-hu-duan-cun-chu">定时器 + 客户端存储</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#postmessage">postMessage</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#storageevent">StorageEvent</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#broadcastchannel">BroadcastChannel</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#sharedworker">SharedWorker</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://Honey608.github.io/posts/kua-liu-lan-qi-chuang-kou-7chong-fang-shi/#messagechannel">MessageChannel</a>
+
+                
+            </li>
+        
+    </ul>
+</div>
+
+    
+
+        </div>
+        
+    </body>
+
+</html>

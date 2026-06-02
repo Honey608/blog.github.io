@@ -1,0 +1,126 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                Vue双向绑定实现原理
+            
+        </title><meta content=Vue双向绑定实现原理 property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>Vue双向绑定实现原理</div><div class=meta>Posted on <time>2019-07-09</time></div></div><section class=body><span id=continue-reading></span><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>```javascri</span></span></code></pre><blockquote><p>留下源码以便以后调试回忆 pt<div id=app><input v-model=text> {{ text }}</div><script>function observe(obj, vm) {
+Object.keys(obj).forEach(function (key) {
+defineReactive(vm, key, obj[key]);
+})
+}
+function defineReactive(obj, key, val) {
+var dep = new Dep();
+Object.defineProperty(obj, key, {
+get: function () {
+// 添加订阅者 watcher 到主题对象 Dep
+if (Dep.target) dep.addSub(Dep.target);
+return val
+},
+set: function (newVal) {
+if (newVal === val) return
+val = newVal;
+// 作为发布者发出通知
+dep.notify();
+}
+});
+}
+function nodeToFragment(node, vm) {
+var flag = document.createDocumentFragment();
+var child;
+// 理解了上面这一点，就能理解 while (child = node.firstChild) 这种用法
+// 其次，appendChild 方法有个隐蔽的地方，就是调用以后 child 会从原来 DOM 中移除
+// 所以，第二次循环时，node.firstChild 已经不再是之前的第一个子元素了
+while (child = node.firstChild) {
+compile(child, vm);
+flag.appendChild(child); // 将子节点劫持到文档片段中
+}
+return flag
+}
+function compile(node, vm) {
+var reg = /{{(.*)}}/;
+// 节点类型为元素
+if (node.nodeType === 1) {
+var attr = node.attributes;
+// 解析属性
+for (var i = 0; i &lt; attr.length; i++) {
+if (attr[i].nodeName == 'v-model') {
+var name = attr[i].nodeValue; // 获取 v-model 绑定的属性名
+node.addEventListener('input', function (e) {
+// 给相应的 data 属性赋值，进而触发该属性的 set 方法
+vm[name] = e.target.value;
+});
+node.value = vm[name]; // 将 data 的值赋给该 node
+node.removeAttribute('v-model');
+}
+};
+new Watcher(vm, node, name, 'input');
+}
+// 节点类型为 text
+if (node.nodeType === 3) {
+if (reg.test(node.nodeValue)) {
+var name = RegExp.$1; // 获取匹配到的字符串
+name = name.trim();
+new Watcher(vm, node, name, 'text');
+}
+}
+}
+function Watcher(vm, node, name, nodeType) {
+Dep.target = this;
+this.name = name;
+this.node = node;
+this.vm = vm;
+this.nodeType = nodeType;
+this.update();
+Dep.target = null;
+}
+Watcher.prototype = {
+update: function () {
+this.get();
+if (this.nodeType == 'text') {
+this.node.nodeValue = this.value;
+}
+if (this.nodeType == 'input') {
+this.node.value = this.value;
+}
+},
+// 获取 data 中的属性值
+get: function () {
+this.value = this.vm[this.name]; // 触发相应属性的 get
+}
+}
+function Dep() {
+this.subs = []
+}
+Dep.prototype = {
+addSub: function (sub) {
+this.subs.push(sub);
+},
+notify: function () {
+this.subs.forEach(function (sub) {
+sub.update();
+});
+}
+}
+function Vue(options) {
+this.data = options.data;
+var data = this.data;
+observe(data, this);
+var id = options.el;
+var dom = nodeToFragment(document.getElementById(id), this);
+// 编译完成后，将 dom 返回到 app 中
+document.getElementById(id).appendChild(dom);
+}
+var vm = new Vue({
+el: 'app',
+data: {
+text: 'hello world',
+}
+})</script> ```</blockquote></section></article></main></div></div><div class=right-content></div>

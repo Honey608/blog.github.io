@@ -196,3 +196,100 @@
         }
     }
 }
+
+.thoughts-index {
+    padding: 0.8rem 0 1rem;
+
+    .thought-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.35rem 1.5rem;
+        align-items: start;
+        padding: 1.2rem 0;
+
+        @media all and (max-width: 640px) {
+            grid-template-columns: 1fr;
+            gap: 0.35rem;
+            padding: 1rem 0;
+        }
+    }
+
+    .thought-main {
+        min-width: 0;
+    }
+
+    .thought-title {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.45;
+
+        a {
+            border-bottom: none;
+
+            &:hover {
+                background: none;
+                color: var(--primary-color);
+            }
+        }
+    }
+
+    .thought-excerpt {
+        margin: 0.45rem 0 0;
+        color: var(--text-1);
+        font-size: 0.92rem;
+        line-height: 1.7;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+
+        > :first-child {
+            margin-top: 0;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1rem;
+        }
+
+        p, ul, ol {
+            margin: 0 0 0.35rem;
+        }
+    }
+
+    .thought-more {
+        display: inline-flex;
+        margin-top: 0.45rem;
+        border-bottom: none;
+        color: var(--primary-color);
+        font-size: 0.82rem;
+
+        &:hover {
+            background: none;
+            text-decoration: underline;
+        }
+    }
+
+    .thought-date {
+        margin-top: 0;
+        padding-top: 0.18rem;
+        text-align: left;
+        font-size: 0.78rem;
+
+        @media all and (max-width: 640px) {
+            padding-top: 0;
+            font-size: 0.75rem;
+        }
+    }
+}
+
+.books-feed {
+    .thought-body blockquote {
+        border-left: none;
+        padding-left: 0;
+    }
+}

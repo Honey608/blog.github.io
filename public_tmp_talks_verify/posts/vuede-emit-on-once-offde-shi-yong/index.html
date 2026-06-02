@@ -1,0 +1,70 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                Vue中的$emit $on $once $off的使用
+            
+        </title><meta content="Vue中的$emit $on $once $off的使用" property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>Vue中的$emit $on $once $off的使用</div><div class=meta>Posted on <time>2019-08-23</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><p>1.如果对以上方法还不了解的可以点击[传送门](https:<blockquote><p>最近的大事就是香港暴乱,做好自己就是对祖国的最好支持！ //cn.vuejs.org/v2/api/#vm-on)大致了解一下😯 2.都说实践出真知，复制以下代码，动动小手点击下就全懂啦！</blockquote><pre class="giallo z-code"><code data-lang=javascript><span class=giallo-l><span>&lt;</span><span class="z-entity z-name z-tag">body</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">div</span><span class=z-entity> id</span><span class=z-keyword>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>app</span><span class="z-punctuation z-definition z-string">"</span><span>></span></span>
+<span class=giallo-l><span>        &lt;</span><span class="z-entity z-name z-tag">p</span><span>></span><span>{</span><span>{</span><span class="z-variable z-other">msg</span><span>}</span><span>}</span><span>{</span><span>{</span><span class="z-variable z-other">count</span><span>}</span><span>}</span><span>&lt;/</span><span class="z-entity z-name z-tag">p</span><span>></span></span>
+<span class=giallo-l><span>        &lt;</span><span class=z-support>children-component</span><span class="z-invalid z-illegal"> @aa="aa">&lt;/children-component></span><span class="z-invalid z-illegal"> &lt;br/></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">        &lt;button</span><span class="z-invalid z-illegal"> @click="removeClick">父组件按钮使用$off移除$on监听&lt;/button></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">    &lt;/div></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">    &lt;script</span><span class=z-entity> src</span><span class=z-keyword>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>https://cdn.jsdelivr.net/npm/vue/dist/vue.js</span><span class="z-punctuation z-definition z-string">"</span><span>></span><span>&lt;/</span><span class="z-entity z-name z-tag">script</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">script</span><span>></span></span>
+<span class=giallo-l><span>        var bus = new Vue()</span></span>
+<span class=giallo-l><span>        var children = </span><span>{</span></span>
+<span class=giallo-l><span class="z-entity z-name">                data</span><span>(</span><span>)</span><span>{</span></span>
+<span class=giallo-l><span>                    return</span><span>{</span></span>
+<span class=giallo-l><span class="z-entity z-name">                        data</span><span>:</span><span class="z-punctuation z-definition z-string">"</span><span class="z-punctuation z-definition z-string">"</span></span>
+<span class=giallo-l><span>                    }</span></span>
+<span class=giallo-l><span>                }</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">                methods</span><span>: </span><span>{</span></span>
+<span class=giallo-l><span class="z-entity z-name">                    childrenClick</span><span>(</span><span>)</span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">                        bus</span><span>.</span><span class="z-entity z-name">$emit</span><span>(</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>aa</span><span class="z-punctuation z-definition z-string">'</span><span>,</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>子组件通过emit发送过来的数据</span><span class="z-punctuation z-definition z-string">'</span><span>)</span></span>
+<span class=giallo-l><span>                    }</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">                    hanldClick</span><span>(</span><span>)</span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">                        bus</span><span>.</span><span class="z-entity z-name">$emit</span><span>(</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>bb</span><span class="z-punctuation z-definition z-string">'</span><span>,</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>子组件用来探索$once</span><span class="z-punctuation z-definition z-string">'</span><span>)</span></span>
+<span class=giallo-l><span>                    }</span></span>
+<span class=giallo-l><span>                }</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">            template</span><span>:</span><span class="z-punctuation z-definition z-string">`</span><span class=z-string>&lt;div></span></span>
+<span class=giallo-l><span class=z-string>                &lt;button @click="childrenClick">子组件使用$emit发送数据，父组件使用$on监听&lt;/button>&lt;br/>&lt;br/> </span></span>
+<span class=giallo-l><span class=z-string>                &lt;button @click="hanldClick">子组件使用$emit发送数据，父组件使用$once监听只能触发一次&lt;/button></span></span>
+<span class=giallo-l><span class=z-string>            &lt;/div></span><span class="z-punctuation z-definition z-string">`</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        var vm = new Vue(</span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">            el</span><span>:</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>#app</span><span class="z-punctuation z-definition z-string">"</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">            data</span><span>:</span><span>{</span></span>
+<span class=giallo-l><span>                msg</span><span>:</span><span class="z-punctuation z-definition z-string">'</span><span class="z-punctuation z-definition z-string">'</span><span>,</span></span>
+<span class=giallo-l><span>                count</span><span>:</span><span class=z-constant>0</span></span>
+<span class=giallo-l><span>            }</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">            components</span><span>:</span><span>{</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-string">                '</span><span class=z-string>children-component</span><span class="z-punctuation z-definition z-string">'</span><span>:</span><span class="z-variable z-other">children</span></span>
+<span class=giallo-l><span>            }</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">            methods</span><span>:</span><span>{</span></span>
+<span class=giallo-l><span class="z-entity z-name">                aa</span><span>(</span><span class=z-variable>s</span><span>)</span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">                    console</span><span>.</span><span class="z-entity z-name">log</span><span>(</span><span class="z-variable z-other">s</span><span>)</span><span>  </span></span>
+<span class=giallo-l><span>                }</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">                removeClick</span><span>(</span><span>)</span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">                    bus</span><span>.</span><span class="z-entity z-name">$off</span><span>(</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>aa</span><span class="z-punctuation z-definition z-string">'</span><span>)</span></span>
+<span class=giallo-l><span>                }</span></span>
+<span class=giallo-l><span>            }</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">            mounted</span><span>(</span><span>)</span><span>{</span></span>
+<span class=giallo-l><span>                bus.$on(</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>aa</span><span class="z-punctuation z-definition z-string">'</span><span>,</span><span>(val)=></span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-language">                    this</span><span>.</span><span class="z-variable z-other">msg</span><span class=z-keyword> =</span><span class="z-variable z-other"> val</span></span>
+<span class=giallo-l><span class="z-variable z-language">                    this</span><span>.</span><span class="z-variable z-other">count</span><span class=z-keyword>++</span></span>
+<span class=giallo-l><span>                }</span><span>)</span></span>
+<span class=giallo-l><span>                bus.$once(</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>bb</span><span class="z-punctuation z-definition z-string">'</span><span>,</span><span>(val)=></span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">                    console</span><span>.</span><span class="z-entity z-name">log</span><span>(</span><span class="z-variable z-other">val</span><span>)</span></span>
+<span class=giallo-l><span>                }</span><span>)</span></span>
+<span class=giallo-l><span>            }</span></span>
+<span class=giallo-l><span>        }</span><span>)</span></span>
+<span class=giallo-l><span>    &lt;/</span><span class="z-entity z-name z-tag">script</span><span>></span></span>
+<span class=giallo-l><span>&lt;/</span><span class="z-entity z-name z-tag">body</span><span>></span></span></code></pre></section></article></main></div></div><div class=right-content></div>

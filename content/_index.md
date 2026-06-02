@@ -3,12 +3,26 @@ title = "Honey"
 template = "homepage.html"
 +++
 
-你好，我是 Honey。
+<div class="home-intro">
+    <p class="home-kicker">你好，我是 Honey。</p>
+    <p class="home-lead">这里记录技术学习、读书笔记、日常思考，以及那些值得反复翻看的好东西。</p>
+</div>
 
-这里是我的个人站点，用来记录技术学习、读书笔记、日常思考和收藏的好东西。
-
-- [**/books**](/books) — 读书笔记与书评，记录阅读心得
-- [**/thoughts**](/talks) — 短想法与随笔，记录日常零散的思考
-- [**/resources**](/projects) — 收藏的好用工具、文档和值得反复阅读的内容
-- [**/posts**](/posts) — 技术文章，涵盖前端、Web 开发、工程实践等
-- [**/tags**](/tags) — 按标签浏览所有文章
+<nav class="home-sections" aria-label="站点分区">
+    <a href="/posts">
+        <span class="home-section-name">/posts</span>
+        <span class="home-section-desc">前端、Web 开发与工程实践</span>
+    </a>
+    <a href="/books">
+        <span class="home-section-name">/books</span>
+        <span class="home-section-desc">读书笔记、书评与阅读心得</span>
+    </a>
+    <a href="/talks">
+        <span class="home-section-name">/thoughts</span>
+        <span class="home-section-desc">短想法、随笔和日常观察</span>
+    </a>
+    <a href="/projects">
+        <span class="home-section-name">/resources</span>
+        <span class="home-section-desc">工具、文档和长期收藏</span>
+    </a>
+</nav>

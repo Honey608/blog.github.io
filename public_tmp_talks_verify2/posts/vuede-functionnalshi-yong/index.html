@@ -1,0 +1,108 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                vue的functionnal使用
+            
+        </title><meta content=vue的functionnal使用 property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>vue的functionnal使用</div><div class=meta>Posted on <time>2020-05-25</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><p>Vue.js 组件提供了一个 functional 开关，设置为 true 后，就可以让组件变为无状态、无实例的函数化组件。因为只是函数，所以渲染的开销相对来说，较小。<p>函<blockquote><p>vue的functionnal使用 <img src=../img/functionnal.gif style=heigth:277px;width:305px> 数化的组件中的 Render 函数，提供了第二个参数 context 作为上下文，data、props、slots、children 以及 parent 都可以通过 context 来访问。</blockquote><p>1.新建一个functionnal.js（名字随意，只要是js文件）文件<pre class="giallo z-code"><code data-lang=javascript><span class=giallo-l><span class="z-punctuation z-definition z-comment">  //</span><span class=z-comment>图片组件设置</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">    //</span><span class=z-comment> eslint-disable-next-line no-unused-vars</span></span>
+<span class=giallo-l><span class="z-storage z-type">    var</span><span class="z-variable z-other"> imgOptions</span><span class=z-keyword> =</span><span> {</span></span>
+<span class=giallo-l><span>    props</span><span>:</span><span> [</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>data</span><span class="z-punctuation z-definition z-string">"</span><span>]</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">    render</span><span>:</span><span class="z-storage z-type"> function</span><span>(</span><span class=z-variable>createElement</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>      return</span><span class="z-entity z-name"> createElement</span><span>(</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>div</span><span class="z-punctuation z-definition z-string">"</span><span>,</span><span> [</span></span>
+<span class=giallo-l><span class="z-entity z-name">        createElement</span><span>(</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>p</span><span class="z-punctuation z-definition z-string">"</span><span>,</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>图片组件</span><span class="z-punctuation z-definition z-string">"</span><span>)</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">        createElement</span><span>(</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>img</span><span class="z-punctuation z-definition z-string">"</span><span>,</span><span> {</span></span>
+<span class=giallo-l><span>          attrs</span><span>:</span><span> {</span></span>
+<span class=giallo-l><span>            src</span><span>:</span><span class="z-variable z-language"> this</span><span>.</span><span class="z-variable z-other">data</span><span>.</span><span class="z-variable z-other">url</span><span>,</span></span>
+<span class=giallo-l><span>            height</span><span>:</span><span class=z-constant> 300</span><span>,</span></span>
+<span class=giallo-l><span>            weight</span><span>:</span><span class=z-constant> 400</span></span>
+<span class=giallo-l><span>          }</span></span>
+<span class=giallo-l><span>        }</span><span>)</span></span>
+<span class=giallo-l><span>      ]</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span><span>;</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">  //</span><span class=z-comment>文字组件设置</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">  //</span><span class=z-comment> eslint-disable-next-line no-unused-vars</span></span>
+<span class=giallo-l><span class="z-storage z-type">  var</span><span class="z-variable z-other"> textOptions</span><span class=z-keyword> =</span><span> {</span></span>
+<span class=giallo-l><span>    props</span><span>:</span><span> [</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>data</span><span class="z-punctuation z-definition z-string">"</span><span>]</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">    render</span><span>:</span><span class="z-storage z-type"> function</span><span>(</span><span class=z-variable>createElement</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>      return</span><span class="z-entity z-name"> createElement</span><span>(</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>div</span><span class="z-punctuation z-definition z-string">"</span><span>,</span><span> [</span></span>
+<span class=giallo-l><span class="z-entity z-name">        createElement</span><span>(</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>p</span><span class="z-punctuation z-definition z-string">"</span><span>,</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>文本组件</span><span class="z-punctuation z-definition z-string">"</span><span>)</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">        createElement</span><span>(</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>span</span><span class="z-punctuation z-definition z-string">"</span><span>,</span><span> {</span></span>
+<span class=giallo-l><span>          attrs</span><span>:</span><span> {</span></span>
+<span class=giallo-l><span>            height</span><span>:</span><span class=z-constant> 300</span><span>,</span></span>
+<span class=giallo-l><span>            weight</span><span>:</span><span class=z-constant> 400</span></span>
+<span class=giallo-l><span>          }</span></span>
+<span class=giallo-l><span>        }</span><span>)</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-language">        this</span><span>.</span><span class="z-variable z-other">data</span><span>.</span><span class="z-variable z-other">content</span></span>
+<span class=giallo-l><span>      ]</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span><span>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">  //</span><span class=z-comment> eslint-disable-next-line no-unused-vars</span></span>
+<span class=giallo-l><span class="z-storage z-type">  var</span><span class="z-variable z-other"> renderData</span><span class=z-keyword> =</span><span> {</span><span>}</span><span>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>  export</span><span class=z-keyword> default</span><span> {</span></span>
+<span class=giallo-l><span>    functional</span><span>:</span><span class=z-constant> true</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">    render</span><span>(</span><span class=z-variable>createElement</span><span>,</span><span> {</span><span class=z-variable> data</span><span> }</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">      console</span><span>.</span><span class="z-entity z-name">log</span><span>(</span><span class="z-variable z-other">data</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span class=z-keyword>      if</span><span> (</span><span class="z-variable z-other">data</span><span>.</span><span class="z-variable z-other">attrs</span><span>.</span><span class="z-variable z-other">data</span><span>.</span><span class="z-variable z-other">type</span><span class=z-keyword> ===</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>text</span><span class="z-punctuation z-definition z-string">"</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">        renderData</span><span class=z-keyword> =</span><span class="z-variable z-other"> textOptions</span><span>;</span></span>
+<span class=giallo-l><span>      }</span><span class=z-keyword> else</span><span class=z-keyword> if</span><span> (</span><span class="z-variable z-other">data</span><span>.</span><span class="z-variable z-other">attrs</span><span>.</span><span class="z-variable z-other">data</span><span>.</span><span class="z-variable z-other">type</span><span class=z-keyword> ===</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>img</span><span class="z-punctuation z-definition z-string">"</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">        renderData</span><span class=z-keyword> =</span><span class="z-variable z-other"> imgOptions</span><span>;</span></span>
+<span class=giallo-l><span>      }</span></span>
+<span class=giallo-l><span class=z-keyword>      return</span><span class="z-entity z-name"> createElement</span><span>(</span><span class="z-variable z-other">renderData</span><span>,</span><span class="z-variable z-other"> data</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span><span>;</span></span></code></pre><p>2.例如在About.vue文件中使用<pre class="giallo z-code"><code data-lang=javascript><span class=giallo-l><span>  &lt;</span><span class="z-entity z-name z-tag">template</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">div</span><span class=z-entity> class</span><span class=z-keyword>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>about</span><span class="z-punctuation z-definition z-string">"</span><span>></span></span>
+<span class=giallo-l><span>      &lt;</span><span class="z-entity z-name z-tag">h1</span><span>></span><span>functionnal的使用</span><span>&lt;/</span><span class="z-entity z-name z-tag">h1</span><span>></span></span>
+<span class=giallo-l><span>      &lt;</span><span class="z-entity z-name z-tag">button</span><span class="z-invalid z-illegal"> @click="log('img')">图片&lt;/button></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">      &lt;button</span><span class="z-invalid z-illegal"> @click="log('text')">文字&lt;/button></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">      &lt;functionalVue</span><span class="z-invalid z-illegal"> :data="data">&lt;/functionalVue></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">    &lt;/div></span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">  &lt;/template></span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-invalid z-illegal">  &lt;script></span></span>
+<span class=giallo-l><span class=z-entity>  import</span><span class=z-entity> functionalVue</span><span class=z-entity> from</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>./functionnal</span><span class="z-punctuation z-definition z-string">"</span><span class="z-invalid z-illegal">;</span></span>
+<span class=giallo-l><span class=z-entity>  export</span><span class=z-entity> default</span><span> {</span></span>
+<span class=giallo-l><span class="z-entity z-name">    data</span><span>(</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span>      return </span><span>{</span></span>
+<span class=giallo-l><span class="z-entity z-name">        data</span><span>:</span><span> {</span><span>}</span></span>
+<span class=giallo-l><span>      }</span><span>;</span></span>
+<span class=giallo-l><span>    }</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">    components</span><span>: </span><span>{</span></span>
+<span class=giallo-l><span class="z-variable z-other">      functionalVue</span></span>
+<span class=giallo-l><span>    }</span><span>,</span></span>
+<span class=giallo-l><span class="z-variable z-other">    methods</span><span>: </span><span>{</span></span>
+<span class=giallo-l><span class="z-entity z-name">      log</span><span>(</span><span class=z-variable>type</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>        if</span><span> (</span><span class="z-variable z-other">type</span><span class=z-keyword> ===</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>img</span><span class="z-punctuation z-definition z-string">"</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-language">          this</span><span>.</span><span class="z-variable z-other">data</span><span class=z-keyword> =</span><span> {</span></span>
+<span class=giallo-l><span>            type</span><span>:</span><span class="z-variable z-other"> type</span><span>,</span></span>
+<span class=giallo-l><span>            url</span><span>:</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-string">              "</span><span class=z-string>http://pic-bucket.ws.126.net/photo/0001/2019-02-07/E7D8PON900AO0001NOS.jpg</span><span class="z-punctuation z-definition z-string">"</span></span>
+<span class=giallo-l><span>          }</span><span>;</span></span>
+<span class=giallo-l><span>        }</span><span class=z-keyword> else</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-language">          this</span><span>.</span><span class="z-variable z-other">data</span><span class=z-keyword> =</span><span> {</span></span>
+<span class=giallo-l><span>            type</span><span>:</span><span class="z-variable z-other"> type</span><span>,</span></span>
+<span class=giallo-l><span>            content</span><span>:</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-string">              "</span><span class=z-string>《流浪地球》中的科学：太阳何时吞并地球？科学家已经给出时间表</span><span class="z-punctuation z-definition z-string">"</span></span>
+<span class=giallo-l><span>          }</span><span>;</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>      }</span></span>
+<span class=giallo-l><span>    }</span><span>,</span></span>
+<span class=giallo-l><span class="z-entity z-name">    created</span><span>(</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span>      this.</span><span class="z-variable z-other">data</span><span class=z-keyword> =</span><span> {</span></span>
+<span class=giallo-l><span>        type</span><span>:</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>text</span><span class="z-punctuation z-definition z-string">"</span><span>,</span></span>
+<span class=giallo-l><span>        content</span><span>:</span><span class="z-punctuation z-definition z-string"> "</span><span class=z-string>《流浪地球》中的科学：太阳何时吞并地球？科学家已经给出时间表</span><span class="z-punctuation z-definition z-string">"</span></span>
+<span class=giallo-l><span>      }</span><span>;</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span><span class="z-invalid z-illegal">;</span></span>
+<span class=giallo-l><span class="z-invalid z-illegal">  &lt;/script></span></span>
+<span class=giallo-l></span></code></pre></section></article></main></div></div><div class=right-content></div>

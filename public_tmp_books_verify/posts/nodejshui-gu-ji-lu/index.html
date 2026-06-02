@@ -1,0 +1,208 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                nodeJs回顾记录
+            
+        </title><meta content=nodeJs回顾记录 property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>nodeJs回顾记录</div><div class=meta>Posted on <time>2019-11-25</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><ol><li><strong>在node_modules下的文件直接使用 require('nav') 使用</strong></ol><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    node_modules下创建nav文件夹再创建nav.js</span></span>
+<span class=giallo-l><span>    //nav.js *** 主</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>> Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时</span></span>
+<span class=giallo-l><span>&lt;img style="height: 176px;width: 50%;" src="/img/libuv.png"></span></span>
+<span class=giallo-l><span>要使用nmp init -y 初始化 package.json文件中 "main": "nav.js" ***</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>        const str = 'hello world come from nav.js'</span></span>
+<span class=giallo-l><span>        module.exports = str</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    //其他js文件</span></span>
+<span class=giallo-l><span>        const nav = require('nav')</span></span>
+<span class=giallo-l><span>        console.log(nav)  //hello world come from nav.js</span></span></code></pre><ol start=2><li><em><strong>常用的fs模块API使用</strong></em></ol><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    const fs = require('fs')</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 1. 异步读取文件</span></span>
+<span class=giallo-l><span>    fs.readFile('./demo.txt',function(err,fd){</span></span>
+<span class=giallo-l><span>        if(err){</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log(fd.toString())</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 2. 打开文件夹</span></span>
+<span class=giallo-l><span>    fs.open('./demo.txt',function(err,fd){</span></span>
+<span class=giallo-l><span>        if(err){</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log(fd)</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 3. 获取文件信息</span></span>
+<span class=giallo-l><span>    fs.stat('./demo.txt',function(err,fd){</span></span>
+<span class=giallo-l><span>        if(err){</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log(fd.isFile())</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 4. 写入文件</span></span>
+<span class=giallo-l><span>    fs.writeFile('log.js', '写入日志3', function (err) {</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 5. 写入内容</span></span>
+<span class=giallo-l><span>    fs.appendFile('./log.js','使用appendFile写入内容\n',function(err){</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log('写入成功')</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 6. 读取目录 把目录下面的文件和文件夹都获取到</span></span>
+<span class=giallo-l><span>    fs.readdir('./src',function(err,fl){</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log(fl)</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 7. fs.rename 1.重命名 2.剪切</span></span>
+<span class=giallo-l><span>    fs.rename('./src/rename.js','./src/rename1.js',function(err,res){</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log('重命名成功')</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l><span>    fs.rename('./src/index.html','./static/index.js',function(err,re){</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log('剪切成功')</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // 8. fs.rmdir 删除目录</span></span>
+<span class=giallo-l><span>    fs.rmdir('index.html', function (err, re) {</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log('删除目录成功')</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    //9. fs.unlink 删除文件</span></span>
+<span class=giallo-l><span>    fs.unlink('index.html', function (err, re) {</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        console.log('删除文件成功')</span></span>
+<span class=giallo-l><span>    })</span></span></code></pre><p>2.1 *** 练习（打印src下是目录的文件)***<pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    //因为是异步操作，所以使用递归加匿名函数自调解决</span></span>
+<span class=giallo-l><span>    fs.readdir('src',function(err,files){</span></span>
+<span class=giallo-l><span>    var allFile = []</span></span>
+<span class=giallo-l><span>    if(err){</span></span>
+<span class=giallo-l><span>        return console.error(err)</span></span>
+<span class=giallo-l><span>    }else{</span></span>
+<span class=giallo-l><span>        (function a(i){</span></span>
+<span class=giallo-l><span>            if(files.length == i){</span></span>
+<span class=giallo-l><span>                console.log(allFile)</span></span>
+<span class=giallo-l><span>                return false</span></span>
+<span class=giallo-l><span>            }</span></span>
+<span class=giallo-l><span>            fs.stat('src/'+files[i],function(err,fd){</span></span>
+<span class=giallo-l><span>                if(fd.isDirectory()){</span></span>
+<span class=giallo-l><span>                    allFile.push(files[i])</span></span>
+<span class=giallo-l><span>                }</span></span>
+<span class=giallo-l><span>                a(i+1)</span></span>
+<span class=giallo-l><span>            })</span></span>
+<span class=giallo-l><span>        })(0)</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>})</span></span></code></pre><ol start=3><li>*** 读入流、写入流和管道读取 ***</ol><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    const fs = require('fs');</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    //文件读取流（就是一段段读取）</span></span>
+<span class=giallo-l><span>    var readStream = fs.createReadStream('demo.txt');</span></span>
+<span class=giallo-l><span>    var str = '';</span></span>
+<span class=giallo-l><span>    var count = 0;</span></span>
+<span class=giallo-l><span>    readStream.on('data',function(chunk){</span></span>
+<span class=giallo-l><span>        str += chunk;</span></span>
+<span class=giallo-l><span>        count++;</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l><span>    readStream.on('end',function(chunk){</span></span>
+<span class=giallo-l><span>        console.log(count)</span></span>
+<span class=giallo-l><span>        console.log(str)</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    //文件写入流</span></span>
+<span class=giallo-l><span>    var writeStream = fs.createWriteStream('input.txt');</span></span>
+<span class=giallo-l><span>    var data = '使用createWriteStream流写入文件\n'</span></span>
+<span class=giallo-l><span>    //也可以使用for写入</span></span>
+<span class=giallo-l><span>    for(var i=0;i&lt;90;i++){</span></span>
+<span class=giallo-l><span>        writeStream.write(data,'utf-8');</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>    writeStream.end(); //标记写入完成 能触发以下方法</span></span>
+<span class=giallo-l><span>    // 成功</span></span>
+<span class=giallo-l><span>    writeStream.on('finish',function(){</span></span>
+<span class=giallo-l><span>        console.log('写入完成')</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l><span>    //失败</span></span>
+<span class=giallo-l><span>    writeStream.on('error',function(){</span></span>
+<span class=giallo-l><span>        console.log('写入完成')</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    //读取一个文件内容写入到另一个文件中</span></span>
+<span class=giallo-l><span>    var readerStream = fs.createReadStream('demo.txt'); //读取文件</span></span>
+<span class=giallo-l><span>    var writeStream = fs.createWriteStream('input.txt'); //创建一个可写入流</span></span>
+<span class=giallo-l><span>    readerStream.pipe(writeStream)</span></span>
+<span class=giallo-l><span>    console.log('程序执行完毕')</span></span>
+<span class=giallo-l></span></code></pre><ol start=4><li>*** 写一个简单的web服务器，可以根据输入同url返回相应的文件内容 ***</ol><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    const http = require('http');</span></span>
+<span class=giallo-l><span>    const fs = require('fs');</span></span>
+<span class=giallo-l><span>    const path = require('path');</span></span>
+<span class=giallo-l><span>    const mime = require('./static/model/mime');</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    http.createServer(function (req, res) {</span></span>
+<span class=giallo-l><span>        var pathname = req.url;</span></span>
+<span class=giallo-l><span>        pathname == '/' ? pathname = './index.html' : "";</span></span>
+<span class=giallo-l><span>        //获取文件的后缀名</span></span>
+<span class=giallo-l><span>        let exname = path.extname(pathname)</span></span>
+<span class=giallo-l><span>        if (pathname != '/favicon.ico') {</span></span>
+<span class=giallo-l><span>            fs.readFile('static/' + pathname, function (err, fd) {</span></span>
+<span class=giallo-l><span>                if (err) {</span></span>
+<span class=giallo-l><span>                    return console.error(err)</span></span>
+<span class=giallo-l><span>                } else {</span></span>
+<span class=giallo-l><span>                    var mimeName = mime.getMime(exname) //使用自己写的方法返回text-html,text-css等</span></span>
+<span class=giallo-l><span>                    res.writeHead(200, {</span></span>
+<span class=giallo-l><span>                        "Content-Type": "mimeName;chart=utf-8"</span></span>
+<span class=giallo-l><span>                    })</span></span>
+<span class=giallo-l><span>                    res.end(fd)</span></span>
+<span class=giallo-l><span>                }</span></span>
+<span class=giallo-l><span>            })</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>    }).listen(8888)</span></span></code></pre><p>4.1 *** 使用回调函数解决异步问题 ***<pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    const fs = require('fs');</span></span>
+<span class=giallo-l><span>    console.log(1)</span></span>
+<span class=giallo-l><span>    function getMime(callback){</span></span>
+<span class=giallo-l><span>        fs.readFile('input.txt',function(err,fd){</span></span>
+<span class=giallo-l><span>            if(err){</span></span>
+<span class=giallo-l><span>                return console.error(err)</span></span>
+<span class=giallo-l><span>            }</span></span>
+<span class=giallo-l><span>            callback(fd)</span></span>
+<span class=giallo-l><span>        })</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>    getMime(function(data){</span></span>
+<span class=giallo-l><span>        console.log(data.toString())</span></span>
+<span class=giallo-l><span>    })</span></span></code></pre><p>4.2 *** 使用nodejs自带的events方法解决异步问题 ***<pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    const fs = require('fs');</span></span>
+<span class=giallo-l><span>    const events = require('events');</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    var EventEmitter = new events.EventEmitter();</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    fs.readFile('input.txt', function (err, fd) {</span></span>
+<span class=giallo-l><span>        if (err) {</span></span>
+<span class=giallo-l><span>            return console.error(err)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        EventEmitter.emit('to_parent', fd)</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    EventEmitter.on('to_parent', function (data) {</span></span>
+<span class=giallo-l><span>        console.log(data.toString())</span></span>
+<span class=giallo-l><span>    })</span></span></code></pre></section></article></main></div></div><div class=right-content></div>

@@ -151,29 +151,98 @@ del {
   overflow-y: hidden;
 }
 
-// Homepage blocks (vertical)
+.home-intro {
+    margin-top: 1.4rem;
+    margin-bottom: 1.2rem;
+
+    p {
+        margin: 0;
+    }
+
+    .home-kicker {
+        font-size: 1.25rem;
+        color: var(--text-0);
+    }
+
+    .home-lead {
+        max-width: 42rem;
+        margin-top: 0.65rem;
+        color: var(--text-1);
+        line-height: 1.8;
+    }
+}
+
+.home-sections {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0 2.2rem;
+
+    @media all and (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+
+    a {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-height: 4.25rem;
+        padding: 0.8rem 0.9rem;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 8px;
+        background: var(--bg-0);
+
+        &:hover {
+            background: var(--bg-1);
+            color: inherit;
+        }
+    }
+
+    .home-section-name {
+        font-family: var(--mono-text-font);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .home-section-desc {
+        color: var(--text-1);
+        font-size: 0.88rem;
+        line-height: 1.55;
+    }
+}
+
+// Homepage blocks
 .homepage-blocks {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+
+    @media all and (max-width: 760px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .homepage-block {
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
-    .homepage-block-title {
-        font-size: 0.8rem;
-        font-weight: normal;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--text-1);
-        margin: 0 0 0.8rem 0;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
 
-        a {
-            border-bottom: none;
-            &:hover { background: none; color: var(--primary-color); }
-        }
+    .homepage-block-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.65rem;
+    }
+
+    .homepage-block-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0;
+        color: var(--text-1);
+        margin: 0;
     }
 
     .homepage-list {
@@ -187,14 +256,14 @@ del {
         justify-content: space-between;
         align-items: baseline;
         gap: 0.8rem;
-        padding: 0.45rem 0;
+        padding: 0.55rem 0;
         border-bottom: 1px solid var(--border-color);
 
         &:last-child { border-bottom: none; }
     }
 
     .homepage-item-title {
-        font-size: 0.9rem;
+        font-size: 0.92rem;
         border-bottom: none !important;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -212,43 +281,40 @@ del {
 
     // Thoughts items
     .homepage-thought-item {
-        padding: 0.6rem 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.25rem 1rem;
+        padding: 0.75rem 0;
         border-bottom: 1px solid var(--border-color);
 
         &:last-child { border-bottom: none; }
     }
 
-    .homepage-thought-body {
-        font-size: 0.9rem;
-        line-height: 1.6;
-        margin-bottom: 0.3rem;
-        color: var(--text-0);
+    .homepage-thought-title {
+        grid-column: 1;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-bottom: none !important;
+
+        &:hover { background: none; color: var(--primary-color); }
     }
 
-    .read-more-btn {
-        display: inline-block;
-        margin-top: 0.5rem;
-        padding: 0.3rem 0.8rem;
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: var(--primary-color);
-        background: var(--bg-1);
-        border: 1px solid var(--primary-color);
-        border-radius: 4px;
-        text-decoration: none;
-        transition: all 0.2s ease;
+    .homepage-thought-excerpt {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: var(--text-1);
+        font-size: 0.88rem;
+        line-height: 1.65;
+    }
 
-        &:hover {
-            background: var(--primary-color);
-            color: var(--bg-1);
-            text-decoration: none;
-        }
+    .homepage-thought-item .homepage-item-date {
+        grid-column: 2;
+        grid-row: 1;
     }
 
     .homepage-more {
-        display: inline-block;
-        margin-top: 1rem;
-        font-size: 0.85rem;
+        flex-shrink: 0;
+        font-size: 0.78rem;
         color: var(--primary-color);
         border-bottom: none !important;
 

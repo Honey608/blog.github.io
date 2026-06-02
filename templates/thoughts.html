@@ -13,7 +13,7 @@
         </div>
     {% endif %}
 
-    <main class="thoughts-feed">
+    <main class="thoughts-feed thoughts-index">
         {%- if paginator %}
             {%- set show_pages = paginator.pages -%}
         {% else %}
@@ -21,22 +21,31 @@
         {% endif -%}
 
         {%- for page in show_pages %}
-            <div class="thought-item">
-                <div class="thought-body">
-                    {% if page.summary %}
-                        {{ page.summary | safe }}
-                        {% if page.content != page.summary %}
-                            <a href={{ page.permalink | safe }} class="read-more-btn">阅读全文 →</a>
+            <article class="thought-item">
+                <div class="thought-main">
+                    <h2 class="thought-title">
+                        <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+                    </h2>
+                    {% set plain_content = page.content | striptags %}
+                    <div class="thought-excerpt">
+                        {% if page.description %}
+                            {{ page.description }}
+                        {% elif page.summary %}
+                            {{ page.summary | safe }}
+                        {% else %}
+                            {{ page.content | safe }}
                         {% endif %}
-                    {% elif page.description %}
-                        {{ page.description }}
-                        <a href={{ page.permalink | safe }} class="read-more-btn">阅读全文 →</a>
-                    {% else %}
-                        {{ page.content | safe }}
+                    </div>
+                    {% if page.description %}
+                        <a href="{{ page.permalink | safe }}" class="thought-more">阅读全文</a>
+                    {% elif page.summary and page.content != page.summary %}
+                        <a href="{{ page.permalink | safe }}" class="thought-more">阅读全文</a>
+                    {% elif plain_content | length > 140 %}
+                        <a href="{{ page.permalink | safe }}" class="thought-more">阅读全文</a>
                     {% endif %}
                 </div>
                 <time class="thought-date">{{ page.date | date(format="%Y-%m-%d") }}</time>
-            </div>
+            </article>
         {% endfor -%}
     </main>
 

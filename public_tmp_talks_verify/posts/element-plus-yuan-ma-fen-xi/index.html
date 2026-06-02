@@ -1,0 +1,138 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                Element Plus 源码分析
+            
+        </title><meta content="Element Plus 源码分析" property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>Element Plus 源码分析</div><div class=meta>Posted on <time>2026-01-03</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><h3 id=gou-jian-liu-cheng><a aria-label="Anchor link for: gou-jian-liu-cheng" class=zola-anchor href=#gou-jian-liu-cheng>构建流程</a></h3><p>参考资料：<p>[http<blockquote><p>Element Plus 源码分析 s://juejin.cn/post/7076941611216666654?from=search-suggest](https://juejin.cn/post/7076941611216666654?from=search-suggest)</blockquote><p><a href=https://juejin.cn/post/7058190805768339470 rel=external>https://juejin.cn/post/7058190805768339470</a><pre class="giallo z-code"><code data-lang=javascript><span class=giallo-l><span class="z-punctuation z-definition z-string">"</span><span class=z-string>build</span><span class="z-punctuation z-definition z-string">"</span><span>: </span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>pnpm run -C internal/build start</span><span class="z-punctuation z-definition z-string">"</span></span></code></pre><pre class="giallo z-code"><code data-lang=javascript><span class=giallo-l><span class="z-punctuation z-definition z-string">"</span><span class=z-string>start</span><span class="z-punctuation z-definition z-string">"</span><span>: </span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts</span><span class="z-punctuation z-definition z-string">"</span></span></code></pre><h3 id=yang-shi-pian><a aria-label="Anchor link for: yang-shi-pian" class=zola-anchor href=#yang-shi-pian>样式篇</a></h3><p>参考资料：<p><a href="https://juejin.cn/post/7190370726677839932?from=search-suggest" rel=external>https://juejin.cn/post/7190370726677839932?from=search-suggest</a><p><a href=https://juejin.cn/post/7101968262061113357 rel=external>https://juejin.cn/post/7101968262061113357</a><h4 id=qiao-miao-de-feng-zhuang-bem><a aria-label="Anchor link for: qiao-miao-de-feng-zhuang-bem" class=zola-anchor href=#qiao-miao-de-feng-zhuang-bem>巧妙的封装 BEM</a></h4><p>el 通过mixin 实现了 BEM (命名空间+模块 + 元素名 + 修饰器名) `namespace-block__element--modifier<pre class="giallo z-code"><code data-lang=sass><span class=giallo-l><span class="z-variable z-other">$namespace</span><span>: </span><span class=z-string>'</span><span class=z-string>el</span><span class=z-string>'</span><span>;</span><span class=z-comment> //</span><span class=z-comment> 命名空间</span></span>
+<span class=giallo-l><span class="z-variable z-other">$element-separator</span><span>: </span><span class=z-string>'</span><span class=z-string>__</span><span class=z-string>'</span><span>;</span><span class=z-comment> //</span><span class=z-comment> 元素分隔符</span></span>
+<span class=giallo-l><span class="z-variable z-other">$modifier-separator</span><span>: </span><span class=z-string>'</span><span class=z-string>--</span><span class=z-string>'</span><span>;</span><span class=z-comment> //</span><span class=z-comment> 修饰器分隔符</span></span>
+<span class=giallo-l><span class="z-variable z-other">$state-prefix</span><span>: </span><span class=z-string>'</span><span class=z-string>is-</span><span class=z-string>'</span><span class=z-keyword> !default</span><span>;</span></span>
+<span class=giallo-l><span class=z-keyword>@mixin</span><span class="z-entity z-name"> b</span><span class="z-entity z-name"> (</span><span class="z-variable z-other">$block</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> !global 将局部变量转为全局变量</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $B</span><span>: </span><span class="z-variable z-other">$namespace</span><span class=z-keyword> +</span><span class=z-string> '</span><span class=z-string>-</span><span class=z-string>'</span><span class=z-keyword> +</span><span class="z-variable z-other"> $block</span><span class=z-keyword> !global</span><span>;</span></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> 模板语法</span></span>
+<span class=giallo-l><span class=z-entity>  .</span><span class=z-support>#{</span><span class="z-variable z-other">$B</span><span class=z-support>}</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>content;</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l><span class=z-keyword>@mixin</span><span class="z-entity z-name"> e</span><span class="z-entity z-name">(</span><span class="z-variable z-other">$element</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $E</span><span>: </span><span class="z-variable z-other">$element</span><span class=z-keyword> !global</span><span>;</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class="z-entity z-name z-tag">&</span><span>;</span><span class=z-comment> //</span><span class=z-comment> & 表示父类选择器</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $currentSelector</span><span>: </span><span class=z-string>"</span><span class=z-string>"</span><span>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>each</span><span class="z-variable z-other"> $unit</span><span class=z-support> in</span><span class="z-variable z-other"> $element</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">    $currentSelector</span><span>: </span><span class=z-support>#{</span><span class="z-variable z-other">$currentSelector</span><span class=z-keyword> +</span><span class=z-string> '</span><span class=z-string>.</span><span class=z-string>'</span><span class=z-keyword> +</span><span class="z-variable z-other"> $B</span><span class=z-keyword> +</span><span class="z-variable z-other"> $element-separator</span><span class=z-keyword> +</span><span class="z-variable z-other"> $unit</span><span class=z-keyword> +</span><span class=z-string> '</span><span class=z-string>,</span><span class=z-string>'</span><span class=z-support>}</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>if</span><span class="z-entity z-name"> hitAllSpecialNestRule(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-comment>    //</span><span class=z-comment> 如果 包含修饰器 状态 或者 伪类 则</span></span>
+<span class=giallo-l><span class=z-comment>    //</span><span class=z-comment> 返回 与父类同级</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>at-root</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>      #{</span><span class="z-variable z-other">$selector</span><span class=z-support>}</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>        #{</span><span class="z-variable z-other">$currentSelector</span><span class=z-support>}</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>          @</span><span class=z-keyword>content;</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>      }</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span><span class=z-keyword> @</span><span class=z-keyword>else</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>at-root</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>      #{</span><span class="z-variable z-other">$currentSelector</span><span class=z-support>}</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>        @</span><span class=z-keyword>content;</span></span>
+<span class=giallo-l><span>      }</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>@mixin</span><span class="z-entity z-name"> m</span><span class="z-entity z-name"> (</span><span class="z-variable z-other">$modifier</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class="z-entity z-name z-tag">&</span><span>;</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $currentSelector</span><span>: </span><span class=z-string>"</span><span class=z-string>"</span><span>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>each</span><span class="z-variable z-other"> $unit</span><span class=z-support> in</span><span class="z-variable z-other"> $modifier</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">    $currentSelector</span><span>: </span><span class=z-support>#{</span><span class="z-variable z-other">$currentSelector</span><span class=z-keyword> +</span><span class=z-support> & </span><span class=z-keyword>+</span><span class="z-variable z-other"> $modifier-separator</span><span class=z-keyword> +</span><span class="z-variable z-other"> $unit</span><span class=z-keyword> +</span><span class=z-string> "</span><span class=z-string>,</span><span class=z-string>"</span><span class=z-support>}</span><span>;</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>at-root</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>    #{</span><span class="z-variable z-other">$currentSelector</span><span class=z-support>}</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>      @</span><span class=z-keyword>content;</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-comment>//</span><span class=z-comment> 判断是否存在特殊嵌套 包含修饰器，包含状态 包含伪类</span></span>
+<span class=giallo-l><span class=z-keyword>@function</span><span class="z-entity z-name"> hitAllSpecialNestRule</span><span class="z-entity z-name">(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>return</span><span class="z-entity z-name"> containsModifier(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span class=z-comment> or</span><span class="z-entity z-name"> containWhenFlag(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span class=z-comment> or</span><span class="z-entity z-name"> containPseudoClass(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span>;</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>@function</span><span class="z-entity z-name"> selectorToString</span><span class="z-entity z-name">(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> inspect($value) 将列表转换成字符串</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class=z-support>inspect</span><span>(</span><span class="z-variable z-other">$selector</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> str-slice($string, $start-at, $end-at) 截取字符串</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class=z-support>str-slice</span><span>(</span><span class="z-variable z-other">$selector</span><span class=z-comment>,</span><span class=z-constant> 2</span><span class=z-comment>,</span><span class=z-constant> -2</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>return</span><span class="z-variable z-other"> $selector</span><span>;</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-comment>//</span><span class=z-comment> 选择器是否包含修饰符</span></span>
+<span class=giallo-l><span class=z-keyword>@function</span><span class="z-entity z-name"> containsModifier</span><span class="z-entity z-name">(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class=z-support>selectorToString</span><span>(</span><span class="z-variable z-other">$selector</span><span>)</span><span>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> 检查 选择器中 是否存在修饰器分隔符</span></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>if</span><span class="z-entity z-name"> str-index(</span><span class="z-variable z-other">$selector</span><span class=z-comment>,</span><span class="z-variable z-other"> $modifier-separator</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>return</span><span class=z-support> true</span><span>;</span></span>
+<span class=giallo-l><span>  }</span><span class=z-keyword> @</span><span class=z-keyword>else</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>return</span><span class=z-support> false</span><span>;</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>@function</span><span class="z-entity z-name"> containWhenFlag</span><span class="z-entity z-name">(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class=z-support>selectorToString</span><span>(</span><span class="z-variable z-other">$selector</span><span>)</span><span>;</span></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> 是否包含状态前缀</span></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>if</span><span class="z-entity z-name"> str-index(</span><span class="z-variable z-other">$selector</span><span class=z-comment>,</span><span class=z-string> '</span><span class=z-string>.</span><span class=z-string>'</span><span class=z-keyword> +</span><span class="z-variable z-other"> $state-prefix</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>return</span><span class=z-support> true</span></span>
+<span class=giallo-l><span>  }</span><span class=z-keyword> @</span><span class=z-keyword>else</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>return</span><span class=z-support> false</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-keyword>@function</span><span class="z-entity z-name"> containPseudoClass</span><span class="z-entity z-name">(</span><span class="z-variable z-other">$selector</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">  $selector</span><span>: </span><span class=z-support>selectorToString</span><span>(</span><span class="z-variable z-other">$selector</span><span>)</span><span>;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class=z-comment>  //</span><span class=z-comment> 是否包含伪类</span></span>
+<span class=giallo-l><span class=z-keyword>  @</span><span class=z-keyword>if</span><span class="z-entity z-name"> str-index(</span><span class="z-variable z-other">$selector</span><span class=z-comment>,</span><span class=z-string> '</span><span class=z-string>:</span><span class=z-string>'</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>return</span><span class=z-support> true</span></span>
+<span class=giallo-l><span>  }</span><span class=z-keyword> @</span><span class=z-keyword>else</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>    @</span><span class=z-keyword>return</span><span class=z-support> false</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l><span class=z-entity>.</span><span class=z-entity>test-bem{</span></span>
+<span class=giallo-l><span class=z-support>    color</span><span>:</span><span class="z-support z-constant"> purple</span><span>;</span></span>
+<span class=giallo-l><span class=z-keyword>    @include</span><span class=z-support> b</span><span class="z-entity z-name">(</span><span class="z-support z-constant">heade1r</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>        color</span><span>:</span><span class="z-support z-constant">orange</span><span>;</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span class=z-keyword>    @include</span><span class=z-support> e</span><span class="z-entity z-name">(</span><span class="z-support z-constant">aa</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>        color</span><span>:</span><span class="z-support z-constant">red</span><span>;</span></span>
+<span class=giallo-l><span class=z-keyword>        @include</span><span class=z-support> m </span><span class="z-entity z-name">(</span><span class="z-support z-constant">success</span><span class="z-entity z-name">)</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>            color</span><span>:</span><span class="z-support z-constant"> green</span><span>;</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l><span class=z-comment>//</span><span class=z-comment> 输出结果</span></span>
+<span class=giallo-l><span class=z-entity>.</span><span class=z-entity>test-bem</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>  color</span><span>:</span><span class="z-support z-constant"> purple</span><span>;</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l><span class=z-entity>.</span><span class=z-entity>test-bem</span><span class=z-entity> .</span><span class=z-entity>el-heade1r</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>  color</span><span>:</span><span class="z-support z-constant"> orange</span><span>;</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l><span class=z-entity>.</span><span class=z-entity>el-heade1r__aa</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>  color</span><span>:</span><span class="z-support z-constant"> red</span><span>;</span></span>
+<span class=giallo-l><span>}</span></span>
+<span class=giallo-l><span class=z-entity>.</span><span class=z-entity>el-heade1r__aa--success</span><span> {</span></span>
+<span class=giallo-l><span class=z-support>  color</span><span>:</span><span class="z-support z-constant"> green</span><span>;</span></span>
+<span class=giallo-l><span>}</span></span></code></pre><h4 id=css-bian-liang-feng-zhuang><a aria-label="Anchor link for: css-bian-liang-feng-zhuang" class=zola-anchor href=#css-bian-liang-feng-zhuang>CSS 变量封装</a></h4></section></article></main></div></div><div class=right-content><div class=toc><div class=heading>Table of Contents</div><ul class=toc-list><li class=parent><a href=https://Honey608.github.io/posts/element-plus-yuan-ma-fen-xi/#gou-jian-liu-cheng>构建流程</a><li class=parent><a href=https://Honey608.github.io/posts/element-plus-yuan-ma-fen-xi/#yang-shi-pian>样式篇</a> <ul><li><a href=https://Honey608.github.io/posts/element-plus-yuan-ma-fen-xi/#qiao-miao-de-feng-zhuang-bem>巧妙的封装 BEM</a><li><a href=https://Honey608.github.io/posts/element-plus-yuan-ma-fen-xi/#css-bian-liang-feng-zhuang>CSS 变量封装</a></ul></ul></div></div>

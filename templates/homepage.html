@@ -12,19 +12,21 @@
         <div class="homepage-blocks">
             {# Recent Books #}
             {% set books_section = get_section(path="books/_index.md") %}
-            {% set recent_books = books_section.pages | slice(end=5) %}
+            {% set recent_books = books_section.pages | slice(end=4) %}
             {% if recent_books %}
                 <div class="homepage-block">
-                    <h2 class="homepage-block-title"><a href="/books">最近阅读</a></h2>
+                    <div class="homepage-block-heading">
+                        <h2 class="homepage-block-title">最近阅读</h2>
+                        <a href="/books" class="homepage-more">全部读书笔记</a>
+                    </div>
                     <ul class="homepage-list">
                         {%- for page in recent_books %}
                             <li class="homepage-list-item">
-                                <a href={{ page.permalink | safe }} class="homepage-item-title">{{ page.title }}</a>
+                                <a href="{{ page.permalink | safe }}" class="homepage-item-title">{{ page.title }}</a>
                                 <time class="homepage-item-date">{{ page.date | date(format="%m-%d") }}</time>
                             </li>
                         {% endfor -%}
                     </ul>
-                    <a href="/books" class="homepage-more">查看更多读书笔记 →</a>
                 </div>
             {% endif %}
 
@@ -33,28 +35,25 @@
             {% set recent_thoughts = thoughts_section.pages | slice(end=3) %}
             {% if recent_thoughts %}
                 <div class="homepage-block">
-                    <h2 class="homepage-block-title"><a href="/talks">最近随想</a></h2>
+                    <div class="homepage-block-heading">
+                        <h2 class="homepage-block-title">最近随想</h2>
+                        <a href="/talks" class="homepage-more">全部随想</a>
+                    </div>
                     <ul class="homepage-list">
                         {%- for page in recent_thoughts %}
                             <li class="homepage-thought-item">
-                                <div class="homepage-thought-body">
-                                    {% if page.summary %}
-                                        {{ page.summary | safe }}
-                                        {% if page.content != page.summary %}
-                                            <a href={{ page.permalink | safe }} class="read-more-btn">阅读全文 →</a>
-                                        {% endif %}
-                                    {% elif page.description %}
-                                        {{ page.description }}
-                                        <a href={{ page.permalink | safe }} class="read-more-btn">阅读全文 →</a>
-                                    {% else %}
-                                        {{ page.content | safe }}
-                                    {% endif %}
-                                </div>
-                                <time class="homepage-item-date">{{ page.date | date(format="%Y-%m-%d") }}</time>
+                                <a href="{{ page.permalink | safe }}" class="homepage-thought-title">{{ page.title }}</a>
+                                {% if page.description %}
+                                    <p class="homepage-thought-excerpt">{{ page.description }}</p>
+                                {% elif page.summary %}
+                                    <p class="homepage-thought-excerpt">{{ page.summary | striptags | truncate(length=96) }}</p>
+                                {% else %}
+                                    <p class="homepage-thought-excerpt">{{ page.content | striptags | truncate(length=96) }}</p>
+                                {% endif %}
+                                <time class="homepage-item-date">{{ page.date | date(format="%m-%d") }}</time>
                             </li>
                         {% endfor -%}
                     </ul>
-                    <a href="/talks" class="homepage-more">查看更多随想 →</a>
                 </div>
             {% endif %}
         </div>

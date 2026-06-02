@@ -1,0 +1,62 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                Vue中slot的使用（通俗易懂）
+            
+        </title><meta content=Vue中slot的使用（通俗易懂） property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>Vue中slot的使用（通俗易懂）</div><div class=meta>Posted on <time>2019-04-22</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><h1 id=wei-shen-me-hui-chu-xian-cha-cao><a aria-label="Anchor link for: wei-shen-me-hui-chu-xian-cha-cao" class=zola-anchor href=#wei-shen-me-hui-chu-xian-cha-cao>为什么会出现插槽</a></h1><p>我们经常需要向一个组件传递内容，像这样： ```javascript <alert-box> Som <blockquote><p>slot <img src=/img/slot.jpeg style=heigth:277px;width:305px> 好久没更新博客啦，今天我又回来啦！ ething bad happened <code> 但是现实却是很残酷，可能会给你来个Error!Something bad happened  好啦，我们可以进入正题啦！😜     </code>javascript<div id=app><childer-component :items=items> <h2>单个插槽</h2> <span>只有在子组件使用单个插槽 slot 才能让我显示出来</span> <pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>       &lt;h2>多个插槽也叫具名插槽&lt;/h2></span></span>
+<span class=giallo-l><span>       &lt;div slot="one"></span></span>
+<span class=giallo-l><span>            &lt;span>one&lt;/span></span></span>
+<span class=giallo-l><span>            &lt;span>第一个&lt;/span></span></span>
+<span class=giallo-l><span>       &lt;/div></span></span>
+<span class=giallo-l><span>       &lt;div slot="two"></span></span>
+<span class=giallo-l><span>            &lt;span>two&lt;/span></span></span>
+<span class=giallo-l><span>            &lt;span>第二个&lt;/span></span></span>
+<span class=giallo-l><span>       &lt;/div></span></span>
+<span class=giallo-l><span>       &lt;h2>作用域插槽（将子组件的值传到父组件供使用）&lt;/h2></span></span>
+<span class=giallo-l><span>       &lt;div slot-scope="props"></span></span>
+<span class=giallo-l><span>            &lt;span>{{ props.addr }}&lt;/span></span></span>
+<span class=giallo-l><span>            &lt;span>{{ props.cname }}&lt;/span></span></span>
+<span class=giallo-l><span>            &lt;span>{{ props.age }}&lt;/span></span></span>
+<span class=giallo-l><span>       &lt;/div></span></span>
+<span class=giallo-l><span>   &lt;/childer-component></span></span>
+<span class=giallo-l><span>&lt;/div></span></span>
+<span class=giallo-l><span>&lt;script></span></span>
+<span class=giallo-l><span>    var childerComponent = Vue.component('childer-component',{</span></span>
+<span class=giallo-l><span>        props:['items'],</span></span>
+<span class=giallo-l><span>        template:`</span></span>
+<span class=giallo-l><span>            &lt;div></span></span>
+<span class=giallo-l><span>                &lt;h1>我是子组件&lt;/h1>    </span></span>
+<span class=giallo-l><span>                &lt;slot>默认&lt;/slot> </span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>                &lt;slot name="one">&lt;/slot></span></span>
+<span class=giallo-l><span>                &lt;slot name="two">&lt;/slot>  </span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>                &lt;slot :cname="items[2].cname">&lt;/slot> </span></span>
+<span class=giallo-l><span>                &lt;slot :addr="items[2].addr">&lt;/slot> </span></span>
+<span class=giallo-l><span>                &lt;slot age="18">&lt;/slot> </span></span>
+<span class=giallo-l><span>            &lt;/div></span></span>
+<span class=giallo-l><span>        `</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l><span>    var vm = new Vue({</span></span>
+<span class=giallo-l><span>        el: '#app',</span></span>
+<span class=giallo-l><span>        data: {</span></span>
+<span class=giallo-l><span>            items:[</span></span>
+<span class=giallo-l><span>                { text:'文字1' , cname:'tom' , addr:'usa' },</span></span>
+<span class=giallo-l><span>                { text:'文字2' , cname:'wangwu' , addr:'uk' },</span></span>
+<span class=giallo-l><span>                { text:'文字3' , cname:'zhangsan' , addr:'un' }</span></span>
+<span class=giallo-l><span>            ],</span></span>
+<span class=giallo-l><span>            components:{</span></span>
+<span class=giallo-l><span>                'childerComponent':childerComponent,</span></span>
+<span class=giallo-l><span>            }</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>    })</span></span>
+<span class=giallo-l><span>&lt;/script></span></span>
+<span class=giallo-l><span>```</span></span></code></pre> <div class=right-content><div class=toc><div class=heading>Table of Contents</div><ul class=toc-list><li class=parent><a href=https://Honey608.github.io/posts/slotde-shi-yong/#wei-shen-me-hui-chu-xian-cha-cao>为什么会出现插槽</a></ul></div></div> 

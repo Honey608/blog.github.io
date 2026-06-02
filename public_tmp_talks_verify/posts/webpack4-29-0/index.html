@@ -1,0 +1,149 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                webpack4.29.0基本用法
+            
+        </title><meta content=webpack4.29.0基本用法 property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>webpack4.29.0基本用法</div><div class=meta>Posted on <time>2019-01-25</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><h1 id=zhun-bei-gong-zuo><a aria-label="Anchor link for: zhun-bei-gong-zuo" class=zola-anchor href=#zhun-bei-gong-zuo>准备工作</a></h1><ul><li>全局安装webpack和webpack-cli <blockquote><p>sudo npm</blockquote></ul><blockquote><p>不积跬步无以至千里，不积小流无以成江海 <img src=/img/jy.png> install webpack -g >sudo npm install webpack-cli -g</blockquote><ul><li>文件夹下局部安装 <blockquote><p>npm init -y sudo npm install webpack --save-dev sudo npm install webpack-cli --save-dev</blockquote></ul><h2 id=shi-xian-dui-yi-ge-jswen-jian-da-bao><a aria-label="Anchor link for: shi-xian-dui-yi-ge-jswen-jian-da-bao" class=zola-anchor href=#shi-xian-dui-yi-ge-jswen-jian-da-bao>实现对一个js文件打包</a></h2><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    //webpack.config.js</span></span>
+<span class=giallo-l><span>    const path = require('path')</span></span>
+<span class=giallo-l><span>    module.exports = {</span></span>
+<span class=giallo-l><span>        mode:'development',</span></span>
+<span class=giallo-l><span>        entry:'./app.js',</span></span>
+<span class=giallo-l><span>        output:{</span></span>
+<span class=giallo-l><span>            filename:'[name].bundle.js',</span></span>
+<span class=giallo-l><span>            path:path.join(__dirname,'./dist'),</span></span>
+<span class=giallo-l><span>      }</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span>    这样就能在dist目录下出现一个app.bundle.js文件啦！</span></span></code></pre><h2 id=shi-xian-duo-ge-jswen-jian-da-bao><a aria-label="Anchor link for: shi-xian-duo-ge-jswen-jian-da-bao" class=zola-anchor href=#shi-xian-duo-ge-jswen-jian-da-bao>实现多个js文件打包</a></h2><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    //webpack.config.js</span></span>
+<span class=giallo-l><span>    const path = require('path')</span></span>
+<span class=giallo-l><span>    const CleanWebpackPlugin = require('clean-webpack-plugin')</span></span>
+<span class=giallo-l><span>    module.exports = {</span></span>
+<span class=giallo-l><span>        mode: 'development',</span></span>
+<span class=giallo-l><span>        entry: {</span></span>
+<span class=giallo-l><span>            index: './src/index.js',</span></span>
+<span class=giallo-l><span>            test: './src/test.js',</span></span>
+<span class=giallo-l><span>            test1: './src/test1.js',</span></span>
+<span class=giallo-l><span>        },</span></span>
+<span class=giallo-l><span>        output: {</span></span>
+<span class=giallo-l><span>            path: path.join(__dirname,'./dist/js'),</span></span>
+<span class=giallo-l><span>            filename:'[name]-[hash].js',</span></span>
+<span class=giallo-l><span>            pubicPath: 'http://cdn.con' //请求时会自己加协议（location.protocol='http'）和端口号(host='cdn.con')</span></span>
+<span class=giallo-l><span>        }，</span></span>
+<span class=giallo-l><span>        plugins: [</span></span>
+<span class=giallo-l><span>            new CleanWebpackPlugin (['./dist/js']) //清除之前打包的文件</span></span>
+<span class=giallo-l><span>        ]</span></span>
+<span class=giallo-l><span>    }</span></span></code></pre><h2 id=shi-yong-mo-ban-shi-xian-mei-ge-jsdui-ying-zi-ji-de-html><a aria-label="Anchor link for: shi-yong-mo-ban-shi-xian-mei-ge-jsdui-ying-zi-ji-de-html" class=zola-anchor href=#shi-yong-mo-ban-shi-xian-mei-ge-jsdui-ying-zi-ji-de-html>使用模版实现每个js对应自己的html</a></h2><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    //webpack.config.js</span></span>
+<span class=giallo-l><span>    const path = require('path')</span></span>
+<span class=giallo-l><span>    const HtmlWebpackPlugin = require('html-webpack-plugin') //模版loader</span></span>
+<span class=giallo-l><span>    const CleanWebpackPlugin = require('clean-webpack-plugin')</span></span>
+<span class=giallo-l><span>    module.exports = {</span></span>
+<span class=giallo-l><span>        entry:{</span></span>
+<span class=giallo-l><span>            index:'./src/index.js',</span></span>
+<span class=giallo-l><span>            test:'./src/test.js',</span></span>
+<span class=giallo-l><span>            test1:'./src/test1.js',</span></span>
+<span class=giallo-l><span>        },</span></span>
+<span class=giallo-l><span>        output:{</span></span>
+<span class=giallo-l><span>            path:path.join(__dirname,'./dist/js'),</span></span>
+<span class=giallo-l><span>            filename:'[name]-[hash].js',</span></span>
+<span class=giallo-l><span>            publicPath:"http://cdn.com"</span></span>
+<span class=giallo-l><span>        },</span></span>
+<span class=giallo-l><span>        plugins:[</span></span>
+<span class=giallo-l><span>            new HtmlWebpackPlugin({</span></span>
+<span class=giallo-l><span>                title: 'this a index.html', //每个html 的title</span></span>
+<span class=giallo-l><span>                template:'hello.html',</span></span>
+<span class=giallo-l><span>                filename:'index.html',</span></span>
+<span class=giallo-l><span>                excludeChunks:['test','test1'] //排除名为test.js,test1.js打包的js文件</span></span>
+<span class=giallo-l><span>            }),</span></span>
+<span class=giallo-l><span>            new HtmlWebpackPlugin({</span></span>
+<span class=giallo-l><span>                title:'this a test.js',</span></span>
+<span class=giallo-l><span>                template:'hello.html',</span></span>
+<span class=giallo-l><span>                filename:'test.html',</span></span>
+<span class=giallo-l><span>                excludeChunks:['index','test1']</span></span>
+<span class=giallo-l><span>            }),</span></span>
+<span class=giallo-l><span>            new HtmlWebpackPlugin({</span></span>
+<span class=giallo-l><span>                title:'this a test1.js',</span></span>
+<span class=giallo-l><span>                template:'hello.html',</span></span>
+<span class=giallo-l><span>                filename:'test1.html',</span></span>
+<span class=giallo-l><span>                excludeChunks:['test','index']       </span></span>
+<span class=giallo-l><span>            }),</span></span>
+<span class=giallo-l><span>            new CleanWebpackPlugin(['./dist/js'])</span></span>
+<span class=giallo-l><span>        ]</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    //hello.html 模版内容</span></span>
+<span class=giallo-l><span>    &lt;head></span></span>
+<span class=giallo-l><span>    &lt;meta charset="UTF-8"></span></span>
+<span class=giallo-l><span>    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"></span></span>
+<span class=giallo-l><span>    &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"></span></span>
+<span class=giallo-l><span>    &lt;title>&lt;%= htmlWebpackPlugin.options.title%>&lt;/title></span></span>
+<span class=giallo-l><span>    &lt;script type="text/javascript"></span></span>
+<span class=giallo-l><span>        &lt;%=</span></span>
+<span class=giallo-l><span>        compilation.assets[htmlWebpackPlugin.files.chunks.test1.entry.substr</span></span>
+<span class=giallo-l><span>        (htmlWebpackPlugin.files.publicPath.length)].source() %></span></span>
+<span class=giallo-l><span>    &lt;/script></span></span>
+<span class=giallo-l><span>    &lt;/head></span></span>
+<span class=giallo-l><span>    &lt;body></span></span>
+<span class=giallo-l><span>        &lt;% for(let k in htmlWebpackPlugin.files.chunks) {%></span></span>
+<span class=giallo-l><span>            &lt;% if(k != 'index') {%></span></span>
+<span class=giallo-l><span>                &lt;script src="&lt;%=htmlWebpackPlugin.files.chunks[k].entry %>">&lt;/script></span></span>
+<span class=giallo-l><span>            &lt;% }%></span></span>
+<span class=giallo-l><span>        &lt;% } %></span></span>
+<span class=giallo-l><span>    &lt;/body></span></span></code></pre><h2 id=shi-yong-file-loader-css-loader-style-loader-postcss-loader><a aria-label="Anchor link for: shi-yong-file-loader-css-loader-style-loader-postcss-loader" class=zola-anchor href=#shi-yong-file-loader-css-loader-style-loader-postcss-loader>使用file-loader|css-loader|style-loader|postcss-loader</a></h2><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    //webpack.config.js</span></span>
+<span class=giallo-l><span>    module.exports = {</span></span>
+<span class=giallo-l><span>    mode: 'development',</span></span>
+<span class=giallo-l><span>    entry: './app.js',</span></span>
+<span class=giallo-l><span>    output: {</span></span>
+<span class=giallo-l><span>        filename: '[name].bundle.js',</span></span>
+<span class=giallo-l><span>        path: path.join(__dirname, './dist/js1'),</span></span>
+<span class=giallo-l><span>    },</span></span>
+<span class=giallo-l><span>    plugins: [</span></span>
+<span class=giallo-l><span>        new CleanWebpackPlugin(['./dist/js1']),</span></span>
+<span class=giallo-l><span>        require('autoprefixer')</span></span>
+<span class=giallo-l><span>    ],</span></span>
+<span class=giallo-l><span>    module: {</span></span>
+<span class=giallo-l><span>        rules: [</span></span>
+<span class=giallo-l><span>        {</span></span>
+<span class=giallo-l><span>            test: /\.(le|c)ss$/,</span></span>
+<span class=giallo-l><span>            test: /\.(png|jpg|gif)$/,</span></span>
+<span class=giallo-l><span>            use: [</span></span>
+<span class=giallo-l><span>            { loader: "style-loader" },</span></span>
+<span class=giallo-l><span>            { loader: "css-loader" },</span></span>
+<span class=giallo-l><span>            { loader: 'file-loader'},</span></span>
+<span class=giallo-l><span>            {</span></span>
+<span class=giallo-l><span>                loader: "postcss-loader",</span></span>
+<span class=giallo-l><span>                options: {</span></span>
+<span class=giallo-l><span>                plugins: [</span></span>
+<span class=giallo-l><span>                    require("autoprefixer") /*在这里添加*/,</span></span>
+<span class=giallo-l><span>                ],</span></span>
+<span class=giallo-l><span>                }</span></span>
+<span class=giallo-l><span>            }</span></span>
+<span class=giallo-l><span>            ]</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>        ]</span></span>
+<span class=giallo-l><span>     },</span></span>
+<span class=giallo-l><span>    }</span></span></code></pre><h3 id=jian-dan-da-bao-yi-ge-ku-de-yan-shi><a aria-label="Anchor link for: jian-dan-da-bao-yi-ge-ku-de-yan-shi" class=zola-anchor href=#jian-dan-da-bao-yi-ge-ku-de-yan-shi>简单打包一个库的演示</a></h3><pre class="giallo z-code"><code data-lang=plain><span class=giallo-l><span>    //webapck.config.js</span></span>
+<span class=giallo-l><span>    const path = require('path');</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    module.exports = {</span></span>
+<span class=giallo-l><span>        mode:'development',</span></span>
+<span class=giallo-l><span>        entry: './src/index.js',</span></span>
+<span class=giallo-l><span>        // 不打包进自己写的库的代码中，在业务代码中加载</span></span>
+<span class=giallo-l><span>        externals:['lodash'],</span></span>
+<span class=giallo-l><span>        output: {</span></span>
+<span class=giallo-l><span>            path: path.resolve(__dirname, 'dist'),</span></span>
+<span class=giallo-l><span>            // 文件打包后的文件名字</span></span>
+<span class=giallo-l><span>            filename: 'library.js',</span></span>
+<span class=giallo-l><span>            //可以使用src引入变为全局变量</span></span>
+<span class=giallo-l><span>            library:'library',   </span></span>
+<span class=giallo-l><span>            //以上library挂载的地方（比如this window等）</span></span>
+<span class=giallo-l><span>            libraryTarget: "umd"</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>    };</span></span></code></pre></section></article></main></div></div><div class=right-content><div class=toc><div class=heading>Table of Contents</div><ul class=toc-list><li class=parent><a href=https://Honey608.github.io/posts/webpack4-29-0/#zhun-bei-gong-zuo>准备工作</a> <ul><li><a href=https://Honey608.github.io/posts/webpack4-29-0/#shi-xian-dui-yi-ge-jswen-jian-da-bao>实现对一个js文件打包</a><li><a href=https://Honey608.github.io/posts/webpack4-29-0/#shi-xian-duo-ge-jswen-jian-da-bao>实现多个js文件打包</a><li><a href=https://Honey608.github.io/posts/webpack4-29-0/#shi-yong-mo-ban-shi-xian-mei-ge-jsdui-ying-zi-ji-de-html>使用模版实现每个js对应自己的html</a><li><a href=https://Honey608.github.io/posts/webpack4-29-0/#shi-yong-file-loader-css-loader-style-loader-postcss-loader>使用file-loader|css-loader|style-loader|postcss-loader</a></li><ul><li><a href=https://Honey608.github.io/posts/webpack4-29-0/#jian-dan-da-bao-yi-ge-ku-de-yan-shi>简单打包一个库的演示</a></ul></ul></ul></div></div>

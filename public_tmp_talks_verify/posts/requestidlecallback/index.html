@@ -1,0 +1,84 @@
+<!doctype html><html class="dark light" lang=en><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content=https://Honey608.github.io name=base><title>
+            
+                requestIdleCallback
+            
+        </title><meta content=requestIdleCallback property=og:title><meta content="This is an example description" property=og:description><meta content="This is an example description" name=description><link href=https://Honey608.github.io/icon/favicon.png rel=icon type=image/png><link href=https://Honey608.github.io/fonts.css rel=stylesheet><script defer src=https://Honey608.github.io/js/codeblock.js></script><script defer src=https://Honey608.github.io/js/toc.js></script><script defer src=https://Honey608.github.io/js/note.js></script><script>MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };</script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link title="
+    Honey
+" href=https://Honey608.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://Honey608.github.io/giallo-light.css id=syntaxLightStyle rel=stylesheet><link disabled href=https://Honey608.github.io/giallo-dark.css id=syntaxDarkStyle rel=stylesheet><link href=https://Honey608.github.io/theme/light.css rel=stylesheet><link href=https://Honey608.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><script>var themeToggleMode = "toggle";</script><script src=https://Honey608.github.io/js/themetoggle.js></script><script>setTheme(getSavedTheme());</script><link href=https://Honey608.github.io/main.css media=screen rel=stylesheet><script src="https://Honey608.github.io/js/searchElasticlunr.min.js?h=b6d784e207d8794b3e43" defer></script><body><div class=left-content></div><div class=content><nav><div class=left-nav><a href=https://Honey608.github.io>Honey</a><div class=socials></div></div><div class=right-nav><a href=https://Honey608.github.io/posts style=margin-right:.5em>/posts</a><a href=https://Honey608.github.io/books style=margin-right:.5em>/books</a><a href=https://Honey608.github.io/projects style=margin-right:.5em>/resources</a><a href=https://Honey608.github.io/talks style=margin-right:.5em>/thoughts</a><a href=https://Honey608.github.io/tags style=margin-right:.5em>/tags</a><button title="$SHORTCUT to open search" class=search-button id=search-button><img alt=Search class=search-icon src=https://Honey608.github.io/icons/search.svg></button><div class="search-modal js" aria-labelledby=modalTitle id=searchModal role=dialog><div id=modal-content><h1 class=page-header id=modalTitle>Search</h1><div id=searchBar><input aria-controls=results-container aria-expanded=false autocomplete=off id=searchInput placeholder=Search... role=combobox spellcheck=false><button title="Clear search" class=clear-button id=clear-search><svg viewbox="0 -960 960 960" xmlns=http://www.w3.org/2000/svg><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></div><div id=results-container><div id=results-info><span id=zero_results style=display:none>No results</span><span id=one_result style=display:none>1 result</span><span id=many_results style=display:none>$NUMBER results</span></div><div id=results role=listbox></div></div></div></div><a onclick="toggleTheme(); event.preventDefault();" href=# id=dark-mode-toggle> <img alt=Light id=sun-icon src=https://Honey608.github.io/icons/sun.svg> <img alt=Dark id=moon-icon src=https://Honey608.github.io/icons/moon.svg style=filter:invert()> </a><script>updateItemToggleTheme()</script></div></nav><div data-selector="main article p" class=visible-element-observer-root><main><article><div class=title><div class=page-header>requestIdleCallback</div><div class=meta>Posted on <time>2026-01-03</time><span class=tags-label>::</span><span class=tags> <a class=post-tag href=https://Honey608.github.io/tags/web/>web</a> </span></div></div><section class=body><span id=continue-reading></span><p>在网页中，有许多耗时但是却又不能那么紧要的任务。它<blockquote><p>requestIdleCallback作用 们和紧要的任务，比如对用户的输入作出及时响应的之类的任务，它们共享事件队列。如果两者发生冲突，用户体验会很糟糕。我们可以使用setTimout，对这些任务进行延迟处理。但是我们并不知道，setTimeout在执行回调时，是否是浏览器空闲的时候。</blockquote><p>而requestIdleCallback就解决了这个痛点，requestIdleCallback会在帧结束时并且有空闲时间。或者用户不与网页交互时，执行回调。<pre class="giallo z-code"><code data-lang=html><span class=giallo-l><span>&lt;!</span><span class="z-entity z-name z-tag">DOCTYPE</span><span class=z-entity> html</span><span>></span></span>
+<span class=giallo-l><span>&lt;</span><span class="z-entity z-name z-tag">html</span><span class=z-entity> lang</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>en</span><span class="z-punctuation z-definition z-string">"</span><span>></span></span>
+<span class=giallo-l><span>&lt;</span><span class="z-entity z-name z-tag">head</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">meta</span><span class=z-entity> charset</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>UTF-8</span><span class="z-punctuation z-definition z-string">"</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">meta</span><span class=z-entity> name</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>viewport</span><span class="z-punctuation z-definition z-string">"</span><span class=z-entity> content</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>width=device-width, initial-scale=1.0</span><span class="z-punctuation z-definition z-string">"</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">title</span><span>></span><span>Document</span><span>&lt;/</span><span class="z-entity z-name z-tag">title</span><span>></span></span>
+<span class=giallo-l><span>&lt;/</span><span class="z-entity z-name z-tag">head</span><span>></span></span>
+<span class=giallo-l><span>&lt;</span><span class="z-entity z-name z-tag">body</span><span>></span></span>
+<span class=giallo-l><span>    &lt;</span><span class="z-entity z-name z-tag">input</span><span class=z-entity> type</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>text</span><span class="z-punctuation z-definition z-string">"</span><span class=z-entity> id</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>text</span><span class="z-punctuation z-definition z-string">"</span><span class=z-entity> style</span><span>=</span><span class="z-punctuation z-definition z-string">"</span><span class=z-string>width: 700px</span><span class="z-punctuation z-definition z-string">"</span><span> /></span></span>
+<span class=giallo-l><span>&lt;/</span><span class="z-entity z-name z-tag">body</span><span>></span></span>
+<span class=giallo-l><span>&lt;</span><span class="z-entity z-name z-tag">script</span><span>></span></span>
+<span class=giallo-l><span class="z-storage z-type">    const</span><span class="z-variable z-other z-constant"> datas</span><span class=z-keyword> =</span><span> [</span><span>]</span></span>
+<span class=giallo-l><span class="z-storage z-type">    const</span><span class="z-variable z-other z-constant"> text</span><span class=z-keyword> =</span><span class="z-variable z-other"> document</span><span>.</span><span class="z-entity z-name">getElementById</span><span>(</span><span class="z-punctuation z-definition z-string">'</span><span class=z-string>text</span><span class="z-punctuation z-definition z-string">'</span><span>)</span></span>
+<span class=giallo-l><span class="z-storage z-type">    let</span><span class="z-variable z-other"> isReporting</span><span class=z-keyword> =</span><span class=z-constant> false</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-storage z-type">    function</span><span class="z-entity z-name"> sleep</span><span> (</span><span class=z-variable>ms</span><span class=z-keyword> =</span><span class=z-constant> 100</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-storage z-type">        let</span><span class="z-variable z-other"> sleepSwitch</span><span class=z-keyword> =</span><span class=z-constant> true</span></span>
+<span class=giallo-l><span class="z-storage z-type">        let</span><span class="z-variable z-other"> s</span><span class=z-keyword> =</span><span class="z-variable z-other"> Date</span><span>.</span><span class="z-entity z-name">now</span><span>(</span><span>)</span></span>
+<span class=giallo-l><span class=z-keyword>        while</span><span> (</span><span class="z-variable z-other">sleepSwitch</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>            if</span><span> (</span><span class="z-variable z-other">Date</span><span>.</span><span class="z-entity z-name">now</span><span>(</span><span>)</span><span class=z-keyword> -</span><span class="z-variable z-other"> s</span><span class=z-keyword> ></span><span class="z-variable z-other"> ms</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">                sleepSwitch</span><span class=z-keyword> =</span><span class=z-constant> false</span></span>
+<span class=giallo-l><span>            }</span></span>
+<span class=giallo-l><span>        }</span><span> </span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l><span class="z-storage z-type">    function</span><span class="z-entity z-name"> handleClick</span><span> (</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">        datas</span><span>.</span><span class="z-entity z-name">push</span><span>(</span><span>{</span></span>
+<span class=giallo-l><span>            date</span><span>:</span><span class="z-variable z-other"> Date</span><span>.</span><span class="z-entity z-name">now</span><span>(</span><span>)</span></span>
+<span class=giallo-l><span>        }</span><span>)</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">        //</span><span class=z-comment> 监听用户响应的函数，需要花费150ms</span></span>
+<span class=giallo-l><span class="z-entity z-name">        sleep</span><span>(</span><span class=z-constant>150</span><span>)</span></span>
+<span class=giallo-l><span class="z-entity z-name">        handleDataReport</span><span>(</span><span>)</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">    //</span><span class=z-comment> =========================  使用requestIdleCallback  ==============================</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-storage z-type">    function</span><span class="z-entity z-name"> handleDataReport</span><span> (</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>        if</span><span> (</span><span class="z-variable z-other">isReporting</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class=z-keyword>            return</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span class="z-variable z-other">        isReporting</span><span class=z-keyword> =</span><span class=z-constant> true</span></span>
+<span class=giallo-l><span class="z-entity z-name">        requestIdleCallback</span><span>(</span><span class="z-variable z-other">report</span><span>)</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-storage z-type">    function</span><span class="z-entity z-name"> report</span><span> (</span><span class=z-variable>deadline</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-variable z-other">        isReporting</span><span class=z-keyword> =</span><span class=z-constant> false</span></span>
+<span class=giallo-l><span class=z-keyword>        while</span><span> (</span><span class="z-variable z-other">deadline</span><span>.</span><span class="z-entity z-name">timeRemaining</span><span>(</span><span>)</span><span class=z-keyword> ></span><span class=z-constant> 0</span><span class=z-keyword> &&</span><span class="z-variable z-other"> datas</span><span>.</span><span class="z-support z-variable">length</span><span class=z-keyword> ></span><span class=z-constant> 0</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-entity z-name">            get</span><span>(</span><span class="z-variable z-other">datas</span><span>.</span><span class="z-entity z-name">pop</span><span>(</span><span>)</span><span>)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span class=z-keyword>        if</span><span> (</span><span class="z-variable z-other">datas</span><span>.</span><span class="z-support z-variable">length</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-entity z-name">            handleDataReport</span><span>(</span><span>)</span></span>
+<span class=giallo-l><span>        }</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">    //</span><span class=z-comment> =========================  使用requestIdleCallback结束  ==============================</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-storage z-type">    function</span><span class="z-entity z-name"> get</span><span>(</span><span class=z-variable>data</span><span>)</span><span> {</span></span>
+<span class=giallo-l><span class="z-punctuation z-definition z-comment">        //</span><span class=z-comment> 数据上报的函数，需要话费20ms</span></span>
+<span class=giallo-l><span class="z-entity z-name">        sleep</span><span>(</span><span class=z-constant>20</span><span>)</span></span>
+<span class=giallo-l><span class="z-variable z-other">        console</span><span>.</span><span class="z-entity z-name">log</span><span>(</span><span class="z-punctuation z-definition z-string">`</span><span class=z-string>~~~ 数据上报 ~~~: </span><span class=z-string>${</span><span class="z-variable z-other">data</span><span class=z-string>.</span><span class="z-variable z-other">date</span><span class=z-string>}</span><span class="z-punctuation z-definition z-string">`</span><span>)</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span class="z-variable z-other">    text</span><span>.</span><span class="z-variable z-other">oninput</span><span class=z-keyword> =</span><span class="z-variable z-other"> handleClick</span></span>
+<span class=giallo-l><span>&lt;</span><span>/</span><span class="z-entity z-name z-tag">script</span><span>></span></span>
+<span class=giallo-l><span>&lt;/</span><span class="z-entity z-name z-tag">html</span><span>></span></span></code></pre><p>参考资料：<a href=https://juejin.cn/post/6844904081463443463 rel=external>https://juejin.cn/post/6844904081463443463</a></section></article></main></div></div><div class=right-content></div>
